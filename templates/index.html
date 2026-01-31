@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="mb-12 text-center">
+    <h1 class="text-4xl font-extrabold mb-4">
+        {{ 'Explore Python Automation Tools' if lang == 'en' else 'Python自動化ツールを探索する' }}
+    </h1>
+    <p class="text-xl text-gray-600">
+        {{ 'Make your daily life easier with simple Python scripts.' if lang == 'en' else 'シンプルなPythonスクリプトで、日常をもっと便利に。' }}
+    </p>
+</section>
+
+<!-- Monetag Ad near top -->
+<div class="ad-placeholder">Monetag Ad Placement</div>
+
+{% set popular_pages = pages | selectattr("popular", "defined") | selectattr("popular", "equalto", true) | list %}
+{% if popular_pages %}
+<section class="mb-12">
+    <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <span class="mr-2">🔥</span> {{ 'Popular Articles' if lang == 'en' else '人気記事' }}
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for page in popular_pages %}
+        <a href="{{ page.url }}" class="flex bg-blue-50 rounded-xl p-4 hover:bg-blue-100 transition-colors">
+            <div class="flex-1">
+                <h3 class="font-bold text-lg">{{ page.title }}</h3>
+                <p class="text-sm text-gray-600">{{ page.date }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<h2 class="text-2xl font-bold mb-6 flex items-center">
+    <span class="mr-2">✨</span> {{ 'Latest Articles' if lang == 'en' else '最新記事' }}
+</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {% for page in pages %}
+    <article class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+        <div class="p-6">
+            <div class="text-sm text-blue-500 font-semibold mb-2">{{ page.date }}</div>
+            <h2 class="text-xl font-bold mb-3">
+                <a href="{{ page.url }}" class="hover:text-blue-600">{{ page.title }}</a>
+            </h2>
+            <p class="text-gray-600 text-sm mb-4">
+                {{ page.description if page.description else 'No description available.' }}
+            </p>
+            <a href="{{ page.url }}" class="text-blue-500 font-medium hover:underline">
+                {{ 'Read more' if lang == 'en' else '続きを読む' }} &rarr;
+            </a>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+{% endblock %}

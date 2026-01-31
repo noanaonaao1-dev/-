@@ -1,0 +1,17 @@
+---
+title: "Python Web Scraper for Beginners"
+date: "2023-10-28"
+description: "Learn how to extract data from websites using BeautifulSoup."
+tags: ["scraping", "beautifulsoup"]
+popular: true
+---
+<p>Web scraping is a powerful tool for data collection.</p>
+<pre>
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://example.com'
+res = requests.get(url)
+soup = BeautifulSoup(res.text, 'html.parser')
+print(soup.title.text)
+</pre>

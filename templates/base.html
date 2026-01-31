@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="{{ lang if lang else 'ja' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ meta.title if meta and meta.title else 'Python Automation Blog' }}{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Monetag MultiTag Placeholder -->
+    <script src="//gloapoot.com/forty/24/7/multitag.js" data-zone="YOUR_ZONE_ID" async data-cfasync="false"></script>
+    <style>
+        .copy-btn-wrapper {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .ad-placeholder {
+            min-height: 100px;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #ccc;
+            margin: 1rem 0;
+        }
+        pre {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 1.5rem;
+            rounded: 0.75rem;
+            overflow-x: auto;
+            border: 1px solid #334155;
+            font-family: 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.875rem;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
+            <a href="/{{ lang }}/" class="text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+                PY-AUTO-BLOG
+            </a>
+
+            <div class="flex items-center space-x-4 mt-2 md:mt-0">
+                <!-- Simple Search -->
+                <div class="relative">
+                    <input type="text" id="search-input" placeholder="{{ 'Search tools...' if lang == 'en' else 'ツールを検索...' }}"
+                           class="bg-gray-100 border-none rounded-full px-4 py-1 text-sm focus:ring-2 focus:ring-blue-500 w-40 md:w-64">
+                    <div id="search-results" class="absolute top-full right-0 w-80 bg-white shadow-xl rounded-lg mt-2 hidden max-h-96 overflow-y-auto z-[60]"></div>
+                </div>
+
+                <div class="relative group">
+                    <button class="flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 py-2">
+                        🌐 {{ lang | upper }}
+                    </button>
+                    <div class="absolute right-0 mt-0 w-32 bg-white border border-gray-100 rounded-xl shadow-xl hidden group-hover:block overflow-hidden">
+                        <a href="/jp/" class="block px-4 py-2 text-sm hover:bg-blue-50">日本語 (JP)</a>
+                        <a href="/en/" class="block px-4 py-2 text-sm hover:bg-blue-50">English (EN)</a>
+                    </div>
+                </div>
+                <a href="/admin/" class="p-2 text-gray-400 hover:text-gray-600 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-12 mt-20">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-8">
+                <a href="/{{ lang }}/" class="text-xl font-bold text-white">PY-AUTO-BLOG</a>
+                <p class="mt-2 text-sm">Useful & Fun Python Automation Scripts</p>
+            </div>
+            <div class="flex justify-center space-x-6 mb-8 text-sm">
+                <a href="/jp/" class="hover:text-white transition-colors">日本語</a>
+                <a href="/en/" class="hover:text-white transition-colors">English</a>
+                <a href="/admin/" class="hover:text-white transition-colors">Admin</a>
+            </div>
+            <p class="text-xs">&copy; 2023 Python Automation Blog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('input', async (e) => {
+            const query = e.target.value;
+            if (query.length < 2) {
+                searchResults.classList.add('hidden');
+                return;
+            }
+
+            // In production, this calls the Cloudflare Function
+            try {
+                const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&lang={{ lang }}`);
+                const data = await res.json();
+
+                if (data.length > 0) {
+                    searchResults.innerHTML = data.map(item => `
+                        <a href="${item.url}" class="block p-4 hover:bg-blue-50 border-b last:border-0">
+                            <div class="font-bold text-gray-900">${item.title}</div>
+                            <div class="text-xs text-gray-500">${item.date}</div>
+                        </a>
+                    `).join('');
+                    searchResults.classList.remove('hidden');
+                } else {
+                    searchResults.innerHTML = '<div class="p-4 text-sm text-gray-500 text-center">No results found</div>';
+                    searchResults.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error('Search failed:', err);
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.classList.add('hidden');
+            }
+        });
+
+        // View count tracking (simple)
+        if (window.location.pathname.endsWith('.html')) {
+            fetch('/api/stats', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: window.location.pathname })
+            }).catch(() => {});
+        }
+    </script>
+</body>
+</html>
