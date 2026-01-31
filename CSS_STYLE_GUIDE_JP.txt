@@ -1,0 +1,115 @@
+# PY-AUTO-BLOG CSS & デザイン・スタイルガイド
+
+このガイドでは、ブログ記事を美しく装飾するためのCSSクラスとTailwind CSSの活用方法をまとめています。
+これらをHTML内に記述することで、プロフェッショナルな外観のコンテンツを簡単に作成できます。
+
+---
+
+## 1. カスタム装飾コンポーネント
+特定の用途のためにあらかじめ定義されたスタイルです。
+
+### メッセージ・アラートボックス
+記事の中で重要な情報やヒントを強調する際に使用します。
+
+- **情報 (Info)**
+  <div class="alert-info">
+    ここに情報や豆知識を記述します。
+  </div>
+  `クラス名: alert-info`
+
+- **成功・ヒント (Success/Tip)**
+  <div class="alert-success">
+    成功事例や便利なテクニックを記述します。
+  </div>
+  `クラス名: alert-success`
+
+- **注意・警告 (Warning)**
+  <div class="alert-warning">
+    注意点やエラー回避策を記述します。
+  </div>
+  `クラス名: alert-warning`
+
+### アニメーション (スクロール連動)
+要素が画面に入ったときにふわっと表示される効果です。
+`<div class="reveal">...</div>`
+と記述するだけで、自動的にアニメーションが適用されます。
+
+---
+
+## 2. コードブロック
+`<pre><code>...</code></pre>` で囲むと、自動的に以下の装飾が適用されます：
+- 濃い背景色（ダークモード風）
+- 読みやすい等幅フォント
+- 右上に「Copy」ボタンが自動付与
+
+---
+
+## 3. Tailwind CSS ユーティリティ（よく使うもの）
+本ブログでは Tailwind CSS を導入しているため、以下のクラスを組み合わせて自由なレイアウトが可能です。
+
+### テキスト装飾
+- `text-brand-600`: ブランドカラー（青）の文字
+- `font-bold`: 太字
+- `text-sm`, `text-lg`, `text-xl`: 文字サイズ調整
+- `text-slate-500`: 補足情報などの薄いグレー文字
+- `bg-slate-100 p-2 rounded`: 薄いグレーの背景にパディングと角丸
+
+### 余白調整
+- `mb-4`, `mb-8`: 下方向に余白（margin-bottom）
+- `mt-10`: 上方向に大きな余白（margin-top）
+- `p-6`: 全方向に内側余白（padding）
+
+### コンテナ・カード
+- `bg-white shadow-xl rounded-2xl p-8 border border-slate-100`:
+  高級感のあるカード型デザインになります。
+
+### グリッド・レイアウト
+2カラムのレイアウトを作る例：
+`<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div>左側のコンテンツ</div>
+  <div>右側のコンテンツ</div>
+</div>`
+
+---
+
+## 4. ブランドカラー（Brand Colors）
+独自に定義した「brand」カラーが使用可能です。
+
+- `brand-50` (最薄)
+- `brand-500` (標準)
+- `brand-600` (ロゴ・リンク用)
+- `brand-900` (最濃)
+
+使用例: `class="text-brand-600"`, `class="bg-brand-50"`
+
+---
+
+## 5. 広告プレースホルダー
+Monetag広告を挿入しやすいように設計されています。
+`<div class="ad-placeholder">Ad Placement Area</div>`
+と記述することで、広告が読み込まれるまでの枠を確保し、レイアウト崩れを防ぎます。
+
+---
+
+## 6. コピペ用！デザインパターン集
+
+### A. アイコン付きの見出し風
+<div class="flex items-center gap-3 mb-6">
+  <div class="w-10 h-10 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center font-bold">1</div>
+  <h3 class="text-xl font-bold">ステップ1: 準備</h3>
+</div>
+
+### B. モダンな引用 (Blockquote)
+<blockquote class="border-l-4 border-brand-500 pl-6 py-2 my-8 italic text-slate-700 bg-slate-50">
+  「自動化は、人間の創造性を解き放つための鍵である。」
+</blockquote>
+
+### C. 特徴リスト
+<ul class="space-y-3">
+  <li class="flex items-center gap-2">
+    <span class="text-green-500">✔</span> 高速な動作
+  </li>
+  <li class="flex items-center gap-2">
+    <span class="text-green-500">✔</span> 多言語対応
+  </li>
+</ul>
