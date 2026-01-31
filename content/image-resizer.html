@@ -1,0 +1,49 @@
+---
+slug: image-resizer
+date: "2023-10-27"
+tags: ["automation", "image", "pillow"]
+---
+
+[EN]
+TITLE: Auto Image Resizer with Python
+DESC: A handy script to resize all images in a folder automatically.
+BODY:
+<p>In this post, we'll look at a simple Python script to resize images.</p>
+<pre>
+from PIL import Image
+import os
+
+def resize_images(folder, width):
+    for filename in os.listdir(folder):
+        if filename.endswith(('.jpg', '.png')):
+            img = Image.open(os.path.join(folder, filename))
+            w_percent = (width / float(img.size[0]))
+            h_size = int((float(img.size[1]) * float(w_percent)))
+            img = img.resize((width, h_size), Image.Resampling.LANCZOS)
+            img.save(os.path.join(folder, 'resized_' + filename))
+
+resize_images('./my_photos', 800)
+</pre>
+[/EN]
+
+[JP]
+TITLE: Pythonで画像を一括リサイズする方法
+DESC: フォルダ内の画像をすべて自動でリサイズする便利なスクリプトを紹介します。
+BODY:
+<p>PythonのPillowライブラリを使って、大量の画像を一瞬でリサイズする方法を解説します。</p>
+<pre>
+from PIL import Image
+import os
+
+def resize_images(folder, width):
+    for filename in os.listdir(folder):
+        if filename.endswith(('.jpg', '.png')):
+            img = Image.open(os.path.join(folder, filename))
+            w_percent = (width / float(img.size[0]))
+            h_size = int((float(img.size[1]) * float(w_percent)))
+            img = img.resize((width, h_size), Image.Resampling.LANCZOS)
+            img.save(os.path.join(folder, 'resized_' + filename))
+
+resize_images('./my_photos', 800)
+</pre>
+[/JP]

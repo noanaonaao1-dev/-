@@ -13,88 +13,107 @@ class JulesSSG:
         self.env = Environment(loader=FileSystemLoader(template_dir))
         self.pages = []
 
+    def parse_block(self, block_text):
+        res = {}
+        title_match = re.search(r'^TITLE:\s*(.*)$', block_text, re.M)
+        desc_match = re.search(r'^DESC:\s*(.*)$', block_text, re.M)
+        body_match = re.search(r'^BODY:\s*(.*)$', block_text, re.S | re.M)
+
+        if title_match: res['title'] = title_match.group(1).strip()
+        if desc_match: res['description'] = desc_match.group(1).strip()
+        if body_match:
+            res['body'] = body_match.group(1).strip()
+        else:
+            # If no BODY: tag, assume everything after TITLE/DESC is body
+            # but for consistency we recommend BODY:
+            lines = block_text.split('\n')
+            body_lines = [l for l in lines if not l.startswith('TITLE:') and not l.startswith('DESC:')]
+            res['body'] = '\n'.join(body_lines).strip()
+
+        return res
+
     def parse_file(self, filepath):
         with open(filepath, 'r', encoding='utf-8') as f:
-            content = f.read()
+            raw_content = f.read()
 
-        frontmatter = {}
-        # Try to parse YAML frontmatter
-        if content.startswith('---'):
-            parts = content.split('---', 2)
+        shared_meta = {}
+        if raw_content.startswith('---'):
+            parts = raw_content.split('---', 2)
             if len(parts) >= 3:
                 try:
-                    frontmatter = yaml.safe_load(parts[1])
-                    content = parts[2]
+                    shared_meta = yaml.safe_load(parts[1])
+                    body_area = parts[2]
                 except yaml.YAMLError:
-                    pass
-
-        # If title not in frontmatter, try extracting from <title> tag
-        if 'title' not in frontmatter:
-            title_match = re.search(r'<title>(.*?)</title>', content, re.IGNORECASE | re.DOTALL)
-            if title_match:
-                frontmatter['title'] = title_match.group(1).strip()
+                    body_area = raw_content
             else:
-                frontmatter['title'] = os.path.basename(filepath)
+                body_area = raw_content
+        else:
+            body_area = raw_content
 
-        # Default values
-        if 'date' not in frontmatter:
-            frontmatter['date'] = datetime.now().strftime('%Y-%m-%d')
+        # Extract [EN] and [JP] blocks
+        langs = {}
+        for lang in ['EN', 'JP']:
+            pattern = rf'\[{lang}\](.*?)\[/{lang}\]'
+            match = re.search(pattern, body_area, re.S)
+            if match:
+                langs[lang.lower()] = self.parse_block(match.group(1))
 
-        return frontmatter, content
+        if 'slug' not in shared_meta:
+            shared_meta['slug'] = os.path.splitext(os.path.basename(filepath))[0]
+
+        if 'date' not in shared_meta:
+            shared_meta['date'] = datetime.now().strftime('%Y-%m-%d')
+
+        return shared_meta, langs
 
     def build(self):
         if not os.path.exists(self.dist_dir):
             os.makedirs(self.dist_dir)
 
         # Process articles
-        for lang in ['en', 'jp']:
-            lang_dir = os.path.join(self.content_dir, lang)
-            dist_lang_dir = os.path.join(self.dist_dir, lang)
-            if not os.path.exists(lang_dir):
-                continue
-            if not os.path.exists(dist_lang_dir):
-                os.makedirs(dist_lang_dir)
+        for root, _, files in os.walk(self.content_dir):
+            for file in files:
+                if file.endswith('.html') or file.endswith('.md'):
+                    src_path = os.path.join(root, file)
+                    shared_meta, lang_data = self.parse_file(src_path)
 
-            for root, _, files in os.walk(lang_dir):
-                for file in files:
-                    if file.endswith('.html'):
-                        src_path = os.path.join(root, file)
-                        rel_path = os.path.relpath(src_path, lang_dir)
-                        dest_path = os.path.join(dist_lang_dir, rel_path)
+                    for lang, data in lang_data.items():
+                        dist_lang_dir = os.path.join(self.dist_dir, lang)
+                        os.makedirs(dist_lang_dir, exist_ok=True)
 
-                        os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+                        dest_path = os.path.join(dist_lang_dir, f"{shared_meta['slug']}.html")
 
-                        metadata, body = self.parse_file(src_path)
+                        metadata = shared_meta.copy()
+                        metadata.update(data)
                         metadata['lang'] = lang
-                        metadata['url'] = f'/{lang}/{rel_path}'
+                        metadata['url'] = f'/{lang}/{shared_meta["slug"]}.html'
+
+                        # Use slug for stats tracking
+                        metadata['stats_id'] = shared_meta['slug']
+
                         self.pages.append(metadata)
 
                         template = self.env.get_template('article.html')
-                        output = template.render(content=body, meta=metadata, pages=self.pages, lang=lang)
+                        output = template.render(content=data['body'], meta=metadata, pages=self.pages, lang=lang)
 
                         with open(dest_path, 'w', encoding='utf-8') as f:
                             f.write(output)
 
         # Generate index pages
         for lang in ['en', 'jp']:
+            # Filter pages by lang for the specific index, but keep all pages context if needed
             lang_pages = [p for p in self.pages if p['lang'] == lang]
             lang_pages.sort(key=lambda x: x['date'], reverse=True)
 
             template = self.env.get_template('index.html')
-            output = template.render(pages=lang_pages, lang=lang)
+            output = template.render(pages=lang_pages, lang=lang, all_pages=self.pages)
 
+            os.makedirs(os.path.join(self.dist_dir, lang), exist_ok=True)
             index_path = os.path.join(self.dist_dir, lang, 'index.html')
             with open(index_path, 'w', encoding='utf-8') as f:
                 f.write(output)
 
-        # Admin page
-        admin_dist = os.path.join(self.dist_dir, 'admin')
-        os.makedirs(admin_dist, exist_ok=True)
-        admin_template = self.env.get_template('admin.html')
-        with open(os.path.join(admin_dist, 'index.html'), 'w', encoding='utf-8') as f:
-            f.write(admin_template.render())
-
-        # Root redirect or simple index
+        # Root redirect
         root_index = """<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=/jp/"></head></html>"""
         with open(os.path.join(self.dist_dir, 'index.html'), 'w') as f:
             f.write(root_index)
@@ -102,6 +121,13 @@ class JulesSSG:
         # Export metadata for KV
         with open(os.path.join(self.dist_dir, 'metadata.json'), 'w', encoding='utf-8') as f:
             json.dump(self.pages, f, ensure_ascii=False, indent=2)
+
+        # Admin page
+        admin_dist = os.path.join(self.dist_dir, 'admin')
+        os.makedirs(admin_dist, exist_ok=True)
+        admin_template = self.env.get_template('admin.html')
+        with open(os.path.join(admin_dist, 'index.html'), 'w', encoding='utf-8') as f:
+            f.write(admin_template.render())
 
 if __name__ == '__main__':
     ssg = JulesSSG()

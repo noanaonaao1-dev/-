@@ -220,13 +220,13 @@
         });
 
         // View count tracking (simple)
-        if (window.location.pathname.endsWith('.html')) {
-            fetch('/api/stats', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ url: window.location.pathname })
-            }).catch(() => {});
-        }
+        {% if meta and meta.stats_id %}
+        fetch('/api/stats', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: '{{ meta.stats_id }}' })
+        }).catch(() => {});
+        {% endif %}
     </script>
 </body>
 </html>

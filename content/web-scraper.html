@@ -1,0 +1,38 @@
+---
+slug: web-scraper
+date: "2023-10-28"
+tags: ["scraping", "beautifulsoup"]
+popular: true
+---
+
+[EN]
+TITLE: Python Web Scraper for Beginners
+DESC: Learn how to extract data from websites using BeautifulSoup.
+BODY:
+<p>Web scraping is a powerful tool for data collection.</p>
+<pre>
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://example.com'
+res = requests.get(url)
+soup = BeautifulSoup(res.text, 'html.parser')
+print(soup.title.text)
+</pre>
+[/EN]
+
+[JP]
+TITLE: 初心者向けPythonスクレイピング入門
+DESC: BeautifulSoupを使ってウェブサイトからデータを抽出する方法を学びましょう。
+BODY:
+<p>ウェブスクレイピングは、データ収集のための強力なツールです。</p>
+<pre>
+import requests
+from bs4 import BeautifulSoup
+
+url = 'https://example.com'
+res = requests.get(url)
+soup = BeautifulSoup(res.text, 'html.parser')
+print(soup.title.text)
+</pre>
+[/JP]

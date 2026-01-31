@@ -6,52 +6,61 @@
     <title>Admin Dashboard - PY-AUTO-BLOG</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-slate-50 font-sans text-slate-900">
     <div class="flex">
         <!-- Sidebar -->
-        <aside class="w-64 bg-gray-900 text-white min-h-screen p-6">
-            <h1 class="text-xl font-black mb-8">ADMIN PANEL</h1>
-            <nav class="space-y-4">
-                <a href="/admin/" class="block text-blue-400 font-bold">Dashboard</a>
-                <a href="https://monetag.com/publishers/" target="_blank" class="block hover:text-blue-400">Monetag Analytics</a>
-                <a href="/" class="block hover:text-blue-400">View Site</a>
+        <aside class="w-64 bg-slate-900 text-white min-h-screen p-6 sticky top-0 h-screen">
+            <h1 class="text-xl font-black mb-10 tracking-tighter">ADMIN PANEL</h1>
+            <nav class="space-y-6">
+                <a href="/admin/" class="flex items-center gap-3 text-brand-400 font-bold bg-slate-800 -mx-6 px-6 py-3 border-l-4 border-brand-500">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    Dashboard
+                </a>
+                <a href="https://monetag.com/publishers/" target="_blank" class="flex items-center gap-3 text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Monetag Analytics
+                </a>
+                <div class="pt-10">
+                    <a href="/" class="text-sm text-slate-500 hover:text-white transition-colors">← Back to Site</a>
+                </div>
             </nav>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-8">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-3xl font-bold">Dashboard</h2>
-                <div class="bg-white px-4 py-2 rounded shadow-sm text-sm text-gray-500">
-                    Logged in as Administrator
-                </div>
-            </div>
+        <main class="flex-1 p-10">
+            <header class="mb-12">
+                <h2 class="text-3xl font-extrabold tracking-tight">System Overview</h2>
+                <p class="text-slate-500 mt-2">Manage your multi-language content and performance.</p>
+            </header>
 
             <!-- Stats Overview -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <div class="text-gray-500 text-sm mb-2">Total Articles</div>
-                    <div class="text-3xl font-bold" id="total-articles">-</div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">Total Tools</div>
+                    <div class="text-4xl font-black text-slate-900" id="total-articles">-</div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <div class="text-gray-500 text-sm mb-2">Total Views (Est.)</div>
-                    <div class="text-3xl font-bold" id="total-views">-</div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">Combined Views</div>
+                    <div class="text-4xl font-black text-slate-900" id="total-views">-</div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <div class="text-gray-500 text-sm mb-2">Monetag Status</div>
-                    <div class="text-green-500 font-bold">Active</div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">System Status</div>
+                    <div class="flex items-center gap-2 text-green-600 font-bold">
+                        <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                        Operational
+                    </div>
                 </div>
             </div>
 
             <!-- Articles List -->
-            <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+            <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100">
                 <table class="w-full text-left">
-                    <thead class="bg-gray-50 border-b">
+                    <thead class="bg-slate-50 border-b border-slate-100">
                         <tr>
-                            <th class="px-6 py-4 text-sm font-bold text-gray-700">Title</th>
-                            <th class="px-6 py-4 text-sm font-bold text-gray-700">Lang</th>
-                            <th class="px-6 py-4 text-sm font-bold text-gray-700">Views</th>
-                            <th class="px-6 py-4 text-sm font-bold text-gray-700">Status</th>
+                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">Article ID / Slug</th>
+                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">Languages</th>
+                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">Shared Views</th>
+                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody id="articles-table">
@@ -67,39 +76,59 @@
             const res = await fetch('/metadata.json');
             const pages = await res.json();
 
-            document.getElementById('total-articles').innerText = pages.length;
-
             const table = document.getElementById('articles-table');
             let totalViews = 0;
 
-            for (const page of pages) {
-                // Fetch views for each page
-                const statsRes = await fetch(`/api/stats?url=${encodeURIComponent(page.url)}`);
+            // Group by stats_id
+            const grouped = {};
+            pages.forEach(p => {
+                if (!grouped[p.stats_id]) {
+                    grouped[p.stats_id] = {
+                        id: p.stats_id,
+                        langs: [],
+                        title: p.title // Take the last one found
+                    };
+                }
+                grouped[p.stats_id].langs.push(p.lang);
+            });
+
+            const uniqueIds = Object.keys(grouped);
+            document.getElementById('total-articles').innerText = uniqueIds.length;
+
+            for (const id of uniqueIds) {
+                const item = grouped[id];
+                const statsRes = await fetch(`/api/stats?id=${encodeURIComponent(id)}`);
                 const stats = await statsRes.json();
                 const views = parseInt(stats.views || 0);
                 totalViews += views;
 
                 const row = document.createElement('tr');
-                row.className = 'border-b last:border-0 hover:bg-gray-50';
+                row.className = 'border-b border-slate-50 last:border-0 hover:bg-slate-50/50 transition-colors';
                 row.innerHTML = `
-                    <td class="px-6 py-4">
-                        <div class="font-medium text-gray-900">${page.title}</div>
-                        <div class="text-xs text-gray-500">${page.url}</div>
+                    <td class="px-8 py-6">
+                        <div class="font-bold text-slate-900">${item.title}</div>
+                        <div class="text-xs font-mono text-slate-400 mt-1">${id}</div>
                     </td>
-                    <td class="px-6 py-4">
-                        <span class="px-2 py-1 rounded text-xs font-bold ${page.lang === 'jp' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'}">
-                            ${page.lang.toUpperCase()}
-                        </span>
+                    <td class="px-8 py-6">
+                        <div class="flex gap-2">
+                            ${item.langs.map(l => `
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter ${l === 'jp' ? 'bg-rose-50 text-rose-600' : 'bg-blue-50 text-blue-600'}">
+                                    ${l}
+                                </span>
+                            `).join('')}
+                        </div>
                     </td>
-                    <td class="px-6 py-4 text-sm font-mono">${views}</td>
-                    <td class="px-6 py-4">
-                        <span class="text-green-500 text-xs font-bold">Public</span>
+                    <td class="px-8 py-6">
+                        <span class="text-sm font-black text-slate-900">${views.toLocaleString()}</span>
+                    </td>
+                    <td class="px-8 py-6 text-right">
+                        <a href="/jp/${id}.html" target="_blank" class="text-brand-600 text-xs font-bold hover:underline">Preview</a>
                     </td>
                 `;
                 table.appendChild(row);
             }
 
-            document.getElementById('total-views').innerText = totalViews;
+            document.getElementById('total-views').innerText = totalViews.toLocaleString();
         }
 
         loadDashboard();
