@@ -64,6 +64,12 @@ class JulesSSG:
         if 'date' not in shared_meta:
             shared_meta['date'] = datetime.now().strftime('%Y-%m-%d')
 
+        if 'time' not in shared_meta:
+            shared_meta['time'] = 5
+
+        if 'env' not in shared_meta:
+            shared_meta['env'] = 'None'
+
         return shared_meta, langs
 
     def build(self):

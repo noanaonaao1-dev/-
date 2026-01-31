@@ -1,7 +1,21 @@
-# PY-AUTO-BLOG CSS & デザイン・スタイルガイド
+# PROG-AUTO-LAB CSS & デザイン・スタイルガイド
 
 このガイドでは、ブログ記事を美しく装飾するためのCSSクラスとTailwind CSSの活用方法をまとめています。
 これらをHTML内に記述することで、プロフェッショナルな外観のコンテンツを簡単に作成できます。
+
+---
+
+## 0. 記事のメタデータ（Frontmatter）
+記事の先頭部分で指定することで、自動的にカードやヘッダーに反映されます。
+
+```html
+<!--
+title: 記事のタイトル
+time: 15 MIN (所要時間の目安)
+env: Python 3.x / Node.js (必要環境)
+tags: python, beginner
+-->
+```
 
 ---
 
@@ -135,4 +149,37 @@ Monetag広告を挿入しやすいように設計されています。
       <p class="text-sm text-slate-500">VS Codeで最初の1行を書きます。</p>
     </div>
   </div>
+</div>
+
+### F. ファイル構造ツリー
+<pre class="bg-slate-800 text-slate-200 p-4 rounded-lg font-mono text-sm">
+project/
+├── main.py       # メインプログラム
+├── config.json   # 設定ファイル
+└── data/         # データ保存用フォルダ
+</pre>
+
+### G. 比較テーブル
+<div class="overflow-x-auto">
+  <table class="min-w-full divide-y divide-slate-200 border border-slate-200 rounded-lg">
+    <thead class="bg-slate-50">
+      <tr>
+        <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">機能</th>
+        <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Python</th>
+        <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Node.js</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-slate-200">
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap font-medium">難易度</td>
+        <td class="px-6 py-4 whitespace-nowrap">★☆☆ (易しい)</td>
+        <td class="px-6 py-4 whitespace-nowrap">★★☆ (普通)</td>
+      </tr>
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap font-medium">自動化</td>
+        <td class="px-6 py-4 whitespace-nowrap">得意</td>
+        <td class="px-6 py-4 whitespace-nowrap">WEB系に強い</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

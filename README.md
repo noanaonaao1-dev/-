@@ -1,4 +1,4 @@
-# PY-AUTO-BLOG (Jules SSG)
+# PROG-AUTO-LAB (Jules SSG)
 
 Python製の多言語自動化ブログ・フレームワーク。
 
