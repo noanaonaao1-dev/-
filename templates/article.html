@@ -3,29 +3,45 @@
 {% block title %}{{ meta.title }} - Python Automation Blog{% endblock %}
 
 {% block content %}
-<article class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-sm">
-    <header class="mb-8">
-        <h1 class="text-4xl font-black mb-4">{{ meta.title }}</h1>
-        <div class="flex items-center text-gray-500 space-x-4">
-            <span>📅 {{ meta.date }}</span>
-            {% if meta.tags %}
-            <div class="flex space-x-2">
-                {% for tag in meta.tags %}
-                <span class="bg-gray-100 px-2 py-1 rounded text-xs">#{{ tag }}</span>
-                {% endfor %}
+<article class="max-w-4xl mx-auto reveal">
+    <header class="mb-12 text-center">
+        <div class="flex items-center justify-center gap-3 mb-6">
+            <span class="text-xs font-bold tracking-[0.2em] text-brand-600 uppercase bg-brand-50 px-3 py-1.5 rounded-full">Python Solution</span>
+            <span class="text-slate-300">•</span>
+            <span class="text-sm text-slate-400 font-medium">{{ meta.date }}</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-8 leading-tight">{{ meta.title }}</h1>
+
+        {% if meta.tags %}
+        <div class="flex flex-wrap justify-center gap-2 mb-8">
+            {% for tag in meta.tags %}
+            <span class="bg-slate-50 text-slate-500 px-3 py-1 rounded-full text-xs font-semibold border border-slate-100">#{{ tag }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="flex items-center justify-center gap-3 py-4 border-y border-slate-100 max-w-xs mx-auto">
+            <div class="w-10 h-10 bg-brand-600 rounded-full flex items-center justify-center text-white font-bold">J</div>
+            <div class="text-left">
+                <div class="text-sm font-bold text-slate-900">Jules</div>
+                <div class="text-[10px] text-slate-400 uppercase tracking-wider">Automation Engineer</div>
             </div>
-            {% endif %}
         </div>
     </header>
 
-    <div class="prose prose-blue max-w-none">
-        {{ content | safe }}
-    </div>
+    <div class="bg-white border border-slate-100 p-8 md:p-12 rounded-3xl shadow-2xl shadow-slate-200/40">
+        <div class="prose prose-slate prose-lg max-w-none prose-headings:font-bold prose-a:text-brand-600">
+            {{ content | safe }}
+        </div>
 
-    <!-- Ad placement near copyable code (simulated) -->
-    <div class="mt-12 p-6 border-t border-gray-100">
-        <h3 class="text-lg font-bold mb-4">{{ 'Need help with this tool?' if lang == 'en' else 'このツールでお困りですか？' }}</h3>
-        <div class="ad-placeholder">Monetag High CTR Ad</div>
+        <!-- Ad placement near copyable code (simulated) -->
+        <div class="mt-16 pt-12 border-t border-slate-100">
+            <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100">
+                <h3 class="text-lg font-bold text-slate-900 mb-2">{{ 'Need enterprise support?' if lang == 'en' else '実務での活用でお困りですか？' }}</h3>
+                <p class="text-slate-500 text-sm mb-6">{{ 'Our experts can help you integrate this automation into your business workflow.' if lang == 'en' else 'この自動化スクリプトを業務フローに統合するためのサポートを提供しています。' }}</p>
+                <div class="ad-placeholder bg-white">Monetag High CTR Ad</div>
+            </div>
+        </div>
     </div>
 </article>
 

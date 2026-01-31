@@ -1,56 +1,74 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="mb-12 text-center">
-    <h1 class="text-4xl font-extrabold mb-4">
-        {{ 'Explore Python Automation Tools' if lang == 'en' else 'Python自動化ツールを探索する' }}
+<section class="mb-20 py-12 text-center reveal">
+    <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 text-slate-900">
+        {{ 'Explore Python' if lang == 'en' else 'Python自動化を' }}<br>
+        <span class="text-brand-600">{{ 'Automation Tools' if lang == 'en' else '究める。' }}</span>
     </h1>
-    <p class="text-xl text-gray-600">
-        {{ 'Make your daily life easier with simple Python scripts.' if lang == 'en' else 'シンプルなPythonスクリプトで、日常をもっと便利に。' }}
+    <p class="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
+        {{ 'Professional grade scripts to streamline your daily operations and boost productivity.' if lang == 'en' else '日常業務を劇的に効率化し、生産性を向上させるプロフェッショナルなPythonスクリプトを紹介します。' }}
     </p>
 </section>
 
 <!-- Monetag Ad near top -->
-<div class="ad-placeholder">Monetag Ad Placement</div>
+<div class="ad-placeholder reveal">Monetag Ad Placement</div>
 
 {% set popular_pages = pages | selectattr("popular", "defined") | selectattr("popular", "equalto", true) | list %}
 {% if popular_pages %}
-<section class="mb-12">
-    <h2 class="text-2xl font-bold mb-6 flex items-center">
-        <span class="mr-2">🔥</span> {{ 'Popular Articles' if lang == 'en' else '人気記事' }}
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<section class="mb-20 reveal">
+    <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-3">
+            <span class="w-8 h-8 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center text-lg">🔥</span>
+            {{ 'Popular Articles' if lang == 'en' else '注目の人気記事' }}
+        </h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {% for page in popular_pages %}
-        <a href="{{ page.url }}" class="flex bg-blue-50 rounded-xl p-4 hover:bg-blue-100 transition-colors">
-            <div class="flex-1">
-                <h3 class="font-bold text-lg">{{ page.title }}</h3>
-                <p class="text-sm text-gray-600">{{ page.date }}</p>
+        <a href="{{ page.url }}" class="group block bg-slate-50 border border-slate-100 rounded-2xl p-8 hover:bg-white hover:border-brand-100 hover:shadow-xl hover:shadow-brand-500/5 transition-all duration-300">
+            <div class="flex justify-between items-start mb-4">
+                <span class="text-xs font-bold tracking-widest text-brand-600 uppercase">{{ 'Featured' if lang == 'en' else 'おすすめ' }}</span>
+                <span class="text-sm text-slate-400 font-medium">{{ page.date }}</span>
             </div>
+            <h3 class="text-xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors mb-3">{{ page.title }}</h3>
+            <p class="text-slate-500 text-sm line-clamp-2 leading-relaxed">{{ page.description }}</p>
         </a>
         {% endfor %}
     </div>
 </section>
 {% endif %}
 
-<h2 class="text-2xl font-bold mb-6 flex items-center">
-    <span class="mr-2">✨</span> {{ 'Latest Articles' if lang == 'en' else '最新記事' }}
-</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    {% for page in pages %}
-    <article class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-        <div class="p-6">
-            <div class="text-sm text-blue-500 font-semibold mb-2">{{ page.date }}</div>
-            <h2 class="text-xl font-bold mb-3">
-                <a href="{{ page.url }}" class="hover:text-blue-600">{{ page.title }}</a>
-            </h2>
-            <p class="text-gray-600 text-sm mb-4">
-                {{ page.description if page.description else 'No description available.' }}
-            </p>
-            <a href="{{ page.url }}" class="text-blue-500 font-medium hover:underline">
-                {{ 'Read more' if lang == 'en' else '続きを読む' }} &rarr;
-            </a>
-        </div>
-    </article>
-    {% endfor %}
-</div>
+<section class="reveal">
+    <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-3">
+            <span class="w-8 h-8 bg-brand-100 text-brand-600 rounded-lg flex items-center justify-center text-lg">✨</span>
+            {{ 'Latest Insights' if lang == 'en' else '最新の技術記事' }}
+        </h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for page in pages %}
+        <article class="group bg-white border border-slate-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-slate-200/50 hover:-translate-y-1 transition-all duration-300">
+            <div class="p-8">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-[10px] font-bold tracking-widest text-slate-400 uppercase bg-slate-50 px-2 py-1 rounded">{{ page.date }}</span>
+                    <span class="text-[10px] font-bold tracking-widest text-brand-500 uppercase">{{ 'Tool' if lang == 'en' else 'ツール' }}</span>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-4 leading-tight group-hover:text-brand-600 transition-colors">
+                    <a href="{{ page.url }}">{{ page.title }}</a>
+                </h3>
+                <p class="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed">
+                    {{ page.description if page.description else '...' }}
+                </p>
+                <div class="flex items-center justify-between mt-auto">
+                    <a href="{{ page.url }}" class="text-brand-600 text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
+                        {{ 'Read Case Study' if lang == 'en' else '記事を読む' }}
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                    <span class="text-[10px] font-medium text-slate-400">5 min read</span>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}

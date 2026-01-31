@@ -4,62 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ meta.title if meta and meta.title else 'Python Automation Blog' }}{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#badffd',
+                            300: '#7cc2fc',
+                            400: '#36a1f8',
+                            500: '#0c85eb',
+                            600: '#0066cc',
+                            700: '#0052a3',
+                            800: '#064687',
+                            900: '#0b3b70',
+                        },
+                    },
+                }
+            }
+        }
+    </script>
     <!-- Monetag MultiTag Placeholder -->
     <script src="//gloapoot.com/forty/24/7/multitag.js" data-zone="YOUR_ZONE_ID" async data-cfasync="false"></script>
     <style>
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
         .copy-btn-wrapper {
             position: relative;
             margin-bottom: 2rem;
         }
         .ad-placeholder {
             min-height: 100px;
-            background: #f3f4f6;
+            background: #f8fafc;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px dashed #ccc;
-            margin: 1rem 0;
+            border: 1px dashed #cbd5e1;
+            border-radius: 0.75rem;
+            margin: 1.5rem 0;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 500;
         }
         pre {
-            background: #1e293b;
+            background: #0f172a;
             color: #f8fafc;
             padding: 1.5rem;
-            rounded: 0.75rem;
+            border-radius: 0.75rem;
             overflow-x: auto;
-            border: 1px solid #334155;
+            border: 1px solid #1e293b;
             font-family: 'Fira Code', 'Cascadia Code', monospace;
             font-size: 0.875rem;
             line-height: 1.7;
         }
+        .nav-link {
+            position: relative;
+            transition: color 0.2s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #0c85eb;
+            transition: width 0.2s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans">
-    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
-            <a href="/{{ lang }}/" class="text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+<body class="bg-white text-slate-900 font-sans antialiased">
+    <header class="bg-white/90 backdrop-blur-xl border-b border-slate-100 sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center">
+            <a href="/{{ lang }}/" class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
+                <span class="bg-brand-600 text-white p-1.5 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </span>
                 PY-AUTO-BLOG
             </a>
 
-            <div class="flex items-center space-x-4 mt-2 md:mt-0">
+            <div class="flex items-center space-x-6 mt-4 md:mt-0">
                 <!-- Simple Search -->
                 <div class="relative">
                     <input type="text" id="search-input" placeholder="{{ 'Search tools...' if lang == 'en' else 'ツールを検索...' }}"
-                           class="bg-gray-100 border-none rounded-full px-4 py-1 text-sm focus:ring-2 focus:ring-blue-500 w-40 md:w-64">
-                    <div id="search-results" class="absolute top-full right-0 w-80 bg-white shadow-xl rounded-lg mt-2 hidden max-h-96 overflow-y-auto z-[60]"></div>
+                           class="bg-slate-50 border border-slate-200 rounded-full px-5 py-2 text-sm focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none w-48 md:w-72 transition-all">
+                    <div id="search-results" class="absolute top-full right-0 w-80 bg-white shadow-2xl rounded-2xl mt-3 hidden max-h-96 overflow-y-auto z-[60] border border-slate-100"></div>
                 </div>
 
                 <div class="relative group">
-                    <button class="flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 py-2">
-                        🌐 {{ lang | upper }}
+                    <button class="flex items-center text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors py-2">
+                        {{ lang | upper }}
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
-                    <div class="absolute right-0 mt-0 w-32 bg-white border border-gray-100 rounded-xl shadow-xl hidden group-hover:block overflow-hidden">
-                        <a href="/jp/" class="block px-4 py-2 text-sm hover:bg-blue-50">日本語 (JP)</a>
-                        <a href="/en/" class="block px-4 py-2 text-sm hover:bg-blue-50">English (EN)</a>
+                    <div class="absolute right-0 mt-0 w-40 bg-white border border-slate-100 rounded-2xl shadow-2xl hidden group-hover:block overflow-hidden py-1">
+                        <a href="/jp/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600">日本語 (JP)</a>
+                        <a href="/en/" class="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-600">English (EN)</a>
                     </div>
                 </div>
-                <a href="/admin/" class="p-2 text-gray-400 hover:text-gray-600 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                <a href="/admin/" class="p-2 text-slate-400 hover:text-slate-600 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                 </a>
             </div>
         </nav>
@@ -69,22 +131,55 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="bg-gray-900 text-gray-400 py-12 mt-20">
-        <div class="container mx-auto px-4 text-center">
-            <div class="mb-8">
-                <a href="/{{ lang }}/" class="text-xl font-bold text-white">PY-AUTO-BLOG</a>
-                <p class="mt-2 text-sm">Useful & Fun Python Automation Scripts</p>
+    <footer class="bg-slate-900 text-slate-400 py-16 mt-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="/{{ lang }}/" class="text-xl font-extrabold text-white flex items-center gap-2 mb-4">
+                        <span class="bg-brand-600 text-white p-1 rounded-lg">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </span>
+                        PY-AUTO-BLOG
+                    </a>
+                    <p class="text-sm leading-relaxed">
+                        {{ 'Empowering businesses with modern Python automation solutions.' if lang == 'en' else '最新のPython自動化ソリューションで、ビジネスの可能性を広げます。' }}
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-xs">{{ 'Platform' if lang == 'en' else 'プラットフォーム' }}</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="/jp/" class="hover:text-brand-400 transition-colors">日本語 (JP)</a></li>
+                        <li><a href="/en/" class="hover:text-brand-400 transition-colors">English (EN)</a></li>
+                        <li><a href="/admin/" class="hover:text-brand-400 transition-colors">Admin Panel</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-xs">{{ 'Contact' if lang == 'en' else 'お問い合わせ' }}</h4>
+                    <p class="text-sm mb-4">Ready to automate your workflow?</p>
+                    <a href="mailto:admin@example.com" class="text-brand-400 font-bold hover:underline text-sm tracking-tight">admin@example.com</a>
+                </div>
             </div>
-            <div class="flex justify-center space-x-6 mb-8 text-sm">
-                <a href="/jp/" class="hover:text-white transition-colors">日本語</a>
-                <a href="/en/" class="hover:text-white transition-colors">English</a>
-                <a href="/admin/" class="hover:text-white transition-colors">Admin</a>
+            <div class="pt-8 border-t border-slate-800 text-center text-xs tracking-widest uppercase">
+                &copy; 2023 PY-AUTO-BLOG. ALL RIGHTS RESERVED.
             </div>
-            <p class="text-xs">&copy; 2023 Python Automation Blog. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
+        // Reveal animation
+        const observerOptions = {
+            threshold: 0.1
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
         // Search functionality
         const searchInput = document.getElementById('search-input');
         const searchResults = document.getElementById('search-results');
