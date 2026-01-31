@@ -90,6 +90,31 @@
         .nav-link:hover::after {
             width: 100%;
         }
+
+        /* Rich Content Styling */
+        .alert-info, .alert-success, .alert-warning {
+            padding: 1.25rem;
+            border-radius: 1rem;
+            margin: 1.5rem 0;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            border-width: 1px;
+        }
+        .alert-info {
+            background-color: #f0f9ff;
+            border-color: #bae6fd;
+            color: #0369a1;
+        }
+        .alert-success {
+            background-color: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #15803d;
+        }
+        .alert-warning {
+            background-color: #fffbeb;
+            border-color: #fef3c7;
+            color: #a16207;
+        }
     </style>
 </head>
 <body class="bg-white text-slate-900 font-sans antialiased">
@@ -191,25 +216,36 @@
                 return;
             }
 
-            // In production, this calls the Cloudflare Function
+            // Production: try API first, fallback to static JSON if Workers are limited
+            let data = [];
             try {
                 const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&lang={{ lang }}`);
-                const data = await res.json();
-
-                if (data.length > 0) {
-                    searchResults.innerHTML = data.map(item => `
-                        <a href="${item.url}" class="block p-4 hover:bg-blue-50 border-b last:border-0">
-                            <div class="font-bold text-gray-900">${item.title}</div>
-                            <div class="text-xs text-gray-500">${item.date}</div>
-                        </a>
-                    `).join('');
-                    searchResults.classList.remove('hidden');
+                if (res.ok) {
+                    data = await res.json();
                 } else {
-                    searchResults.innerHTML = '<div class="p-4 text-sm text-gray-500 text-center">No results found</div>';
-                    searchResults.classList.remove('hidden');
+                    throw new Error('API unavailable');
                 }
             } catch (err) {
-                console.error('Search failed:', err);
+                console.warn('API Search failed, using static fallback');
+                const staticRes = await fetch('/metadata.json');
+                const allMetadata = await staticRes.json();
+                data = allMetadata.filter(p =>
+                    p.lang === '{{ lang }}' &&
+                    (p.title.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query)))
+                ).slice(0, 10);
+            }
+
+            if (data.length > 0) {
+                searchResults.innerHTML = data.map(item => `
+                    <a href="${item.url}" class="block p-4 hover:bg-slate-50 border-b border-slate-50 last:border-0 transition-colors">
+                        <div class="font-bold text-slate-900 text-sm">${item.title}</div>
+                        <div class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-bold">${item.date}</div>
+                    </a>
+                `).join('');
+                searchResults.classList.remove('hidden');
+            } else {
+                searchResults.innerHTML = '<div class="p-6 text-sm text-slate-400 text-center">No results found</div>';
+                searchResults.classList.remove('hidden');
             }
         });
 
