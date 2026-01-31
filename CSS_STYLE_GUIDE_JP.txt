@@ -113,3 +113,26 @@ Monetag広告を挿入しやすいように設計されています。
     <span class="text-green-500">✔</span> 多言語対応
   </li>
 </ul>
+
+### D. バッジ・タグ風
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-brand-100 text-brand-700 uppercase tracking-wider">
+  New Feature
+</span>
+
+### E. ステップ形式のリスト
+<div class="space-y-4">
+  <div class="flex gap-4 p-4 bg-white border border-slate-100 rounded-xl shadow-sm">
+    <div class="flex-shrink-0 w-8 h-8 bg-brand-600 text-white rounded-lg flex items-center justify-center font-bold">1</div>
+    <div>
+      <h4 class="font-bold">環境構築</h4>
+      <p class="text-sm text-slate-500">Pythonをインストールしましょう。</p>
+    </div>
+  </div>
+  <div class="flex gap-4 p-4 bg-white border border-slate-100 rounded-xl shadow-sm">
+    <div class="flex-shrink-0 w-8 h-8 bg-brand-600 text-white rounded-lg flex items-center justify-center font-bold">2</div>
+    <div>
+      <h4 class="font-bold">コードを書く</h4>
+      <p class="text-sm text-slate-500">VS Codeで最初の1行を書きます。</p>
+    </div>
+  </div>
+</div>
