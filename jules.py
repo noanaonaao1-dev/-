@@ -120,7 +120,7 @@ class JulesSSG:
                 f.write(output)
 
         # Root redirect
-        root_index = """<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=/jp/"></head></html>"""
+        root_index = """<!DOCTYPE html><html><head><meta name="monetag" content="f14c21f39902f91f2fe7e4ee27f6e07f"><meta http-equiv="refresh" content="0;url=/jp/"></head></html>"""
         with open(os.path.join(self.dist_dir, 'index.html'), 'w') as f:
             f.write(root_index)
 
