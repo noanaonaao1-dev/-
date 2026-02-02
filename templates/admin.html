@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - PROG-AUTO-LAB</title>
+    <title>管理ダッシュボード - PROG-AUTO-LAB</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 font-sans text-slate-900">
     <div class="flex">
         <!-- Sidebar -->
         <aside class="w-64 bg-slate-900 text-white min-h-screen p-6 sticky top-0 h-screen">
-            <h1 class="text-xl font-black mb-10 tracking-tighter">ADMIN PANEL</h1>
+            <h1 class="text-xl font-black mb-10 tracking-tighter">管理パネル</h1>
             <nav class="space-y-6">
                 <a href="/admin/" class="flex items-center gap-3 text-brand-400 font-bold bg-slate-800 -mx-6 px-6 py-3 border-l-4 border-brand-500">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                    Dashboard
+                    ダッシュボード
                 </a>
                 <a href="https://monetag.com/publishers/" target="_blank" class="flex items-center gap-3 text-slate-400 hover:text-white transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                    Monetag Analytics
+                    Monetag 分析
                 </a>
                 <div class="pt-10">
-                    <a href="/" class="text-sm text-slate-500 hover:text-white transition-colors">← Back to Site</a>
+                    <a href="/" class="text-sm text-slate-500 hover:text-white transition-colors">← サイトに戻る</a>
                 </div>
             </nav>
         </aside>
@@ -29,25 +29,25 @@
         <!-- Main Content -->
         <main class="flex-1 p-10">
             <header class="mb-12">
-                <h2 class="text-3xl font-extrabold tracking-tight">System Overview</h2>
-                <p class="text-slate-500 mt-2">Manage your multi-language content and performance.</p>
+                <h2 class="text-3xl font-extrabold tracking-tight">システム概要</h2>
+                <p class="text-slate-500 mt-2">多言語コンテンツの管理とパフォーマンスの確認。</p>
             </header>
 
             <!-- Stats Overview -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">Total Tools</div>
+                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">総ツール数</div>
                     <div class="text-4xl font-black text-slate-900" id="total-articles">-</div>
                 </div>
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">Combined Views</div>
+                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">総閲覧数</div>
                     <div class="text-4xl font-black text-slate-900" id="total-views">-</div>
                 </div>
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">System Status</div>
+                    <div class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">システム状態</div>
                     <div class="flex items-center gap-2 text-green-600 font-bold">
                         <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
-                        Operational
+                        稼働中
                     </div>
                 </div>
             </div>
@@ -57,10 +57,10 @@
                 <table class="w-full text-left">
                     <thead class="bg-slate-50 border-b border-slate-100">
                         <tr>
-                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">Article ID / Slug</th>
-                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">Languages</th>
-                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">Shared Views</th>
-                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest text-right">Action</th>
+                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">記事タイトル / ID</th>
+                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">対応言語</th>
+                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest">閲覧数</th>
+                            <th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-widest text-right">操作</th>
                         </tr>
                     </thead>
                     <tbody id="articles-table">
@@ -122,7 +122,7 @@
                         <span class="text-sm font-black text-slate-900">${views.toLocaleString()}</span>
                     </td>
                     <td class="px-8 py-6 text-right">
-                        <a href="/jp/${id}.html" target="_blank" class="text-brand-600 text-xs font-bold hover:underline">Preview</a>
+                        <a href="/jp/${id}.html" target="_blank" class="text-brand-600 text-xs font-bold hover:underline">プレビュー</a>
                     </td>
                 `;
                 table.appendChild(row);

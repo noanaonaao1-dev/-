@@ -1,0 +1,11 @@
+127.0.0.1 - - [02/Feb/2026 10:34:19] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Feb/2026 10:34:19] "GET /jp/ HTTP/1.1" 200 -
+127.0.0.1 - - [02/Feb/2026 10:34:21] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Feb/2026 10:34:21] "GET /en/ HTTP/1.1" 200 -
+127.0.0.1 - - [02/Feb/2026 10:34:23] "GET /admin/ HTTP/1.1" 200 -
+127.0.0.1 - - [02/Feb/2026 10:34:23] "GET /metadata.json HTTP/1.1" 200 -
+127.0.0.1 - - [02/Feb/2026 10:34:24] code 404, message File not found
+127.0.0.1 - - [02/Feb/2026 10:34:24] "GET /api/stats?id=python-intro HTTP/1.1" 404 -
+127.0.0.1 - - [02/Feb/2026 10:34:24] "GET /jp/python-intro.html HTTP/1.1" 200 -
+127.0.0.1 - - [02/Feb/2026 10:34:25] code 501, message Unsupported method ('POST')
+127.0.0.1 - - [02/Feb/2026 10:34:25] "POST /api/stats HTTP/1.1" 501 -

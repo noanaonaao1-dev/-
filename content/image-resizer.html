@@ -1,51 +1,119 @@
 ---
 slug: image-resizer
-date: "2023-10-27"
-tags: ["automation", "image", "pillow"]
-env: "Python / Pillow"
-time: 5
+date: 2024-02-01
+time: 10
+env: Python 3.x, Pillow
 ---
 
 [EN]
-TITLE: Auto Image Resizer with Python
-DESC: A handy script to resize all images in a folder automatically.
+TITLE: Bulk Image Resizer: Automate Your Web Assets
+DESC: Stop resizing images manually. Use this Python script to process hundreds of photos in seconds.
 BODY:
-<p>In this post, we'll look at a simple Python script to resize images.</p>
-<pre>
-from PIL import Image
+<p>If you're a content creator or web developer, you know the pain of resizing images one by one. Today, we'll build a tool that scans a folder and resizes everything to a standard width while keeping the aspect ratio.</p>
+
+<h2>1. The Tool We'll Use: Pillow</h2>
+<p>Pillow is the "friendly fork" of PIL (Python Imaging Library). It's robust and easy to use.</p>
+<pre><code>pip install Pillow</code></pre>
+
+<h2>2. The Automation Script</h2>
+<p>This script looks for <code>.jpg</code> and <code>.png</code> files in an 'input' folder and saves the smaller versions in an 'output' folder.</p>
+
+<div class="copy-btn-wrapper">
+<pre><code>from PIL import Image
 import os
 
-def resize_images(folder, width):
-    for filename in os.listdir(folder):
-        if filename.endswith(('.jpg', '.png')):
-            img = Image.open(os.path.join(folder, filename))
+def resize_images(input_dir, output_dir, width):
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    for filename in os.listdir(input_dir):
+        if filename.endswith(('.jpg', '.png', '.jpeg')):
+            img = Image.open(os.path.join(input_dir, filename))
             w_percent = (width / float(img.size[0]))
             h_size = int((float(img.size[1]) * float(w_percent)))
-            img = img.resize((width, h_size), Image.Resampling.LANCZOS)
-            img.save(os.path.join(folder, 'resized_' + filename))
 
-resize_images('./my_photos', 800)
-</pre>
+            img = img.resize((width, h_size), Image.Resampling.LANCZOS)
+            img.save(os.path.join(output_dir, filename))
+            print(f"Processed: {filename}")
+
+resize_images('input', 'output', 800)</code></pre>
+<button class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded text-xs font-bold hover:bg-brand-700 transition-colors" onclick="copyCode(this)">Copy</button>
+</div>
+
+<div class="ad-placeholder">Monetag High CTR Ad Placeholder</div>
+
+<h2>3. Why This is Useful</h2>
+<p>By automating this, you ensure that every image on your site has the same maximum width, which improves page load speed and SEO consistency. You can even extend this to add watermarks!</p>
+
+<script>
+function copyCode(btn) {
+    const code = btn.previousElementSibling.innerText;
+    navigator.clipboard.writeText(code);
+    btn.innerText = 'Copied!';
+    setTimeout(() => btn.innerText = 'Copy', 2000);
+}
+</script>
 [/EN]
 
 [JP]
-TITLE: Pythonで画像を一括リサイズする方法
-DESC: フォルダ内の画像をすべて自動でリサイズする便利なスクリプトを紹介します。
+TITLE: 大量画像を一括リサイズ：Webサイト運営を劇的に効率化するツール
+DESC: 数百枚の画像を手動でリサイズしていませんか？Pythonを使えば数秒で終わります。
 BODY:
-<p>PythonのPillowライブラリを使って、大量の画像を一瞬でリサイズする方法を解説します。</p>
-<pre>
-from PIL import Image
+<p>Webサイトの運営やSNS投稿で、大量の画像サイズを整える作業は苦行です。今回は、フォルダ内の全画像を自動で読み込み、アスペクト比を維持したまま指定の横幅にリサイズするスクリプトを作成します。</p>
+
+<h2>1. 必要なライブラリ：Pillow</h2>
+<p>Pythonで画像を扱うなら「Pillow」一択です。以下のコマンドでインストールしましょう。</p>
+<pre><code>pip install Pillow</code></pre>
+
+<h2>2. 自動化スクリプトの全コード</h2>
+<p>このコードは <code>input</code> フォルダ内の画像を読み込み、横幅800pxに統一して <code>output</code> フォルダに保存します。</p>
+
+<div class="copy-btn-wrapper">
+<pre><code>from PIL import Image
 import os
 
-def resize_images(folder, width):
-    for filename in os.listdir(folder):
-        if filename.endswith(('.jpg', '.png')):
-            img = Image.open(os.path.join(folder, filename))
-            w_percent = (width / float(img.size[0]))
-            h_size = int((float(img.size[1]) * float(w_percent)))
-            img = img.resize((width, h_size), Image.Resampling.LANCZOS)
-            img.save(os.path.join(folder, 'resized_' + filename))
+# 入力フォルダ、出力フォルダ、変更後の横幅を指定
+input_dir = 'input'
+output_dir = 'output'
+target_width = 800
 
-resize_images('./my_photos', 800)
-</pre>
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
+for file in os.listdir(input_dir):
+    if file.lower().endswith(('.jpg', '.jpeg', '.png')):
+        # 画像を開く
+        img = Image.open(os.path.join(input_dir, file))
+        # 比率を計算して高さを決定
+        ratio = (target_width / float(img.size[0]))
+        target_height = int((float(img.size[1]) * float(ratio)))
+
+        # リサイズ（高品質なLANCZOSフィルターを使用）
+        img = img.resize((target_width, target_height), Image.Resampling.LANCZOS)
+        # 保存
+        img.save(os.path.join(output_dir, file), optimize=True, quality=85)
+        print(f"完了: {file}")</code></pre>
+<button class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded text-xs font-bold hover:bg-brand-700 transition-colors" onclick="copyCode(this)">コードをコピー</button>
+</div>
+
+<div class="ad-placeholder">Monetag High CTR Ad Placeholder</div>
+
+<h2>3. 実用的なカスタマイズ案</h2>
+<ul>
+    <li><strong>ロゴ（透かし）の自動挿入:</strong> 全ての画像の右下に自分のロゴを自動で入れるように改造可能です。</li>
+    <li><strong>WebP形式への変換:</strong> <code>img.save(..., format='WEBP')</code> とするだけで、Webサイトに最適な軽量形式に変換できます。</li>
+</ul>
+
+<div class="alert-info">
+    <strong>注意点：</strong> 元の画像を上書きしないよう、必ず別の出力フォルダ（outputなど）に保存するようにしましょう。
+</div>
+
+<script>
+function copyCode(btn) {
+    const code = btn.previousElementSibling.innerText;
+    navigator.clipboard.writeText(code);
+    btn.innerText = 'コピー完了！';
+    setTimeout(() => btn.innerText = 'コードをコピー', 2000);
+}
+</script>
 [/JP]

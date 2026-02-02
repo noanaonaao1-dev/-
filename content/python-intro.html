@@ -1,116 +1,118 @@
 ---
 slug: python-intro
-date: "2024-01-31"
-tags: ["python", "beginner", "tutorial"]
-popular: true
-env: "Python 3.x"
+date: 2024-01-31
 time: 15
+env: Python 3.x
 ---
 
 [EN]
-TITLE: Python for Beginners: Setup and Common Pitfalls
-DESC: A bulletproof guide to starting your Python journey. Learn how to install, run, and avoid common beginner mistakes.
+TITLE: Python Automation for Beginners: The Ultimate Setup Guide
+DESC: Learn how to start your automation journey with Python. This guide covers installation to your first script.
 BODY:
-<h2>Step 1: Proper Installation</h2>
-<p>Python is the foundation of our automation tools. But many beginners fail at the very first step.</p>
+<p>Python is the world's most popular language for automation. Whether you want to automate spreadsheets, scrape websites, or manage files, Python is your best friend. In this guide, we will set up your environment properly to avoid common pitfalls.</p>
+
+<h2>1. Why Python for Automation?</h2>
+<p>Python's syntax is close to English, making it easy to read and write. More importantly, it has a massive library ecosystem (PyPI) that allows you to do almost anything with just a few lines of code.</p>
+
+<h2>2. Installing Python (The Right Way)</h2>
+<p>Go to <a href="https://python.org">python.org</a> and download the latest version. <b>Important:</b> During installation on Windows, make sure to check the box that says <b>"Add Python to PATH"</b>. If you miss this, your terminal won't recognize Python commands.</p>
+
+<h2>3. Your First Script</h2>
+<p>Create a file named <code>hello.py</code> and type the following:</p>
+
+<div class="copy-btn-wrapper">
+<pre><code>import os
+
+def main():
+    print("Python Automation Lab: Active")
+    print(f"Current Directory: {os.getcwd()}")
+
+if __name__ == "__main__":
+    main()</code></pre>
+<button class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded text-xs font-bold hover:bg-brand-700 transition-colors" onclick="copyCode(this)">Copy</button>
+</div>
+
+<div class="ad-placeholder">Monetag High CTR Ad Placeholder</div>
+
+<h2>4. Managing Libraries with pip</h2>
+<p>To automate things, you'll need external tools. Use <code>pip</code> to install them:</p>
+<pre><code>pip install requests pandas openpyxl</code></pre>
 
 <div class="alert-info">
-    <strong>Crucial:</strong> Go to <a href="https://www.python.org">python.org</a> and download the "Windows Installer (64-bit)" or the Mac equivalent.
+    <strong>Pro Tip:</strong> Always use virtual environments (<code>venv</code>) to keep your projects clean and avoid version conflicts.
 </div>
 
-<div class="alert-warning">
-    <h3>The #1 Mistake: Forgotten PATH</h3>
-    <p>When you run the installer, look at the very bottom of the first window. You <strong>MUST</strong> check the box that says <strong>"Add Python to PATH"</strong>.</p>
-    <p><strong>Why?</strong> Without this, your computer won't recognize the <code>python</code> command, and you'll get an error like "'python' is not recognized as an internal or external command".</p>
-</div>
-
-<h2>Step 2: Choosing your Editor</h2>
-<p>Don't use Notepad! Use <strong>Visual Studio Code (VS Code)</strong>.</p>
-<ul>
-    <li>Install VS Code from <a href="https://code.visualstudio.com/">here</a>.</li>
-    <li>Search for the "Python" extension by Microsoft and install it.</li>
-</ul>
-
-<h2>Step 3: Your First Code</h2>
-<p>Create a folder named <code>python-test</code> and create a file inside called <code>app.py</code>.</p>
-<pre><code>name = "Jules"
-print(f"Hello, {name}! Automation is fun.")</code></pre>
-
-<h3>How to Run (The Safe Way)</h3>
-<ol>
-    <li>Open your terminal or command prompt.</li>
-    <li>Type <code>python app.py</code> and press Enter.</li>
-    <li>If that doesn't work, try <code>python3 app.py</code>.</li>
-</ol>
-
-<div class="alert-success">
-    <h3>Common Errors and Solutions</h3>
-    <ul>
-        <li><strong>SyntaxError:</strong> Usually a typo or a missing quote.</li>
-        <li><strong>IndentationError:</strong> Python is strict about spaces! Make sure your code is aligned correctly.</li>
-        <li><strong>ModuleNotFoundError:</strong> You haven't installed a library yet. Use <code>pip install library-name</code>.</li>
-    </ul>
-</div>
+<script>
+function copyCode(btn) {
+    const code = btn.previousElementSibling.innerText;
+    navigator.clipboard.writeText(code);
+    btn.innerText = 'Copied!';
+    setTimeout(() => btn.innerText = 'Copy', 2000);
+}
+</script>
 [/EN]
 
 [JP]
 TITLE: 初心者向けPython入門：【完全版】セットアップと落とし穴回避ガイド
-DESC: Pythonを始める際に、誰もが一度はハマる「落とし穴」を完全に塞ぎます。この記事通りにやれば、絶対に迷いません。
+DESC: Pythonで自動化を始めるための第一歩。インストールから最初のスクリプト実行まで、徹底解説します。
 BODY:
-<p class="text-lg mb-6">「Pythonを始めてみたけど、最初の1歩で動かない...」そんな経験をしたくない人のための、超・親切ガイドです。</p>
+<p>「Pythonを始めてみたけど、最初の1歩で動かない...」そんな経験をしたくない人のための、超・親切ガイドです。</p>
 
-<h2 class="text-2xl font-bold border-b-2 border-brand-500 mb-6 pb-2">1. Pythonのインストール（最大の難所）</h2>
-<p>まず公式サイト <a href="https://www.python.org" class="text-brand-600 underline">python.org</a> から最新版をダウンロードします。</p>
+<h2>1. Pythonのインストール（最大の難所）</h2>
+<p>まず公式サイト <a href="https://python.org">python.org</a> から最新版をダウンロードします。</p>
 
-<div class="alert-warning shadow-lg border-l-8">
-    <h3 class="font-bold text-xl mb-2">⚠【最重要】絶対に忘れてはいけないチェック</h3>
-    <p>インストーラーを起動した直後の画面一番下に、<strong>「Add Python to PATH」</strong>というチェックボックスがあります。</p>
-    <p class="font-bold text-red-600 mt-2 underline">これをチェックしないと、この後の手順が全てエラーになります。</p>
-    <p class="text-sm mt-2">もし忘れてインストールしてしまった場合は、一度アンインストールしてやり直すのが一番確実で早いです。</p>
+<div class="alert-warning">
+    <strong>【最重要】絶対に忘れてはいけないチェック</strong><br>
+    インストーラーを起動した直後の画面一番下に、<strong>「Add Python to PATH」</strong>というチェックボックスがあります。<b>これをチェックしないと、この後の手順が全てエラーになります。</b><br>
+    もし忘れてインストールしてしまった場合は、一度アンインストールしてやり直すのが一番確実で早いです。
 </div>
 
-<h2 class="text-2xl font-bold border-b-2 border-brand-500 my-8 pb-2">2. おすすめの「道具箱」：VS Code</h2>
-<p>メモ帳でプログラムを書いてはいけません。プロも使う <strong>Visual Studio Code (VS Code)</strong> を使いましょう。</p>
-<ul class="list-disc ml-6 space-y-2 mb-6">
-    <li><a href="https://code.visualstudio.com/" class="text-brand-600 underline">VS Code公式サイト</a>からインストール。</li>
+<h2>2. おすすめの「道具箱」：VS Code</h2>
+<p>メモ帳でプログラムを書いてはいけません。プロも使う <b>Visual Studio Code (VS Code)</b> を使いましょう。</p>
+<ul>
+    <li><a href="https://code.visualstudio.com/">VS Code公式サイト</a>からインストール。</li>
     <li>左側のアイコンから「Python」と検索し、Microsoft製の拡張機能をインストール。</li>
 </ul>
 
-<h2 class="text-2xl font-bold border-b-2 border-brand-500 my-8 pb-2">3. 最初のプログラムを動かす</h2>
+<h2>3. 最初のプログラムを動かす</h2>
 <p>パソコンのデスクトップに <code>my-python</code> というフォルダを作り、その中に <code>test.py</code> という名前でファイルを作成してください。</p>
 
 <div class="copy-btn-wrapper">
 <pre><code>msg = "Pythonの自動化、最高！"
 print(msg)</code></pre>
+<button class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded text-xs font-bold hover:bg-brand-700 transition-colors" onclick="copyCode(this)">Copy</button>
 </div>
 
-<h3>実行方法（ここでもミスが多い！）</h3>
-<ol class="list-decimal ml-6 space-y-4">
+<p>実行方法（ここでもミスが多い！）</p>
+<ol>
     <li>ターミナル（WindowsならコマンドプロンプトやPowerShell）を開きます。</li>
     <li><code>cd デスクトップ/my-python</code> と入力して、ファイルがある場所へ移動します。</li>
-    <li><strong>ここがポイント：</strong> <code>python test.py</code> と入力してEnterキー！</li>
+    <li><b>ここがポイント：</b> <code>python test.py</code> と入力してEnterキー！</li>
 </ol>
 
 <div class="alert-info">
-    <strong>ヒント：</strong> もし「'python' は、コマンドとして認識されていません」と出たら、手順1の「PATH」のチェック忘れです。
+    ヒント：もし「'python' は、コマンドとして認識されていません」と出たら、手順1の「PATH」のチェック忘れです。
 </div>
 
-<h2 class="text-2xl font-bold border-b-2 border-brand-500 my-8 pb-2">4. 初心者が絶対にはまる「ミスの要因」集</h2>
-<div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
-    <dl class="space-y-4">
-        <dt class="font-bold text-red-600">● 全角スペースの混入</dt>
-        <dd class="text-sm">コードの途中に全角スペースが入っていると動かなくなります。必ず「半角」で書きましょう。</dd>
+<div class="ad-placeholder">Monetag High CTR Ad Placeholder</div>
 
-        <dt class="font-bold text-red-600">● ファイル名のミス</dt>
-        <dd class="text-sm"><code>test.py.txt</code> のように、後ろに <code>.txt</code> が隠れていませんか？ 拡張子が表示される設定を確認しましょう。</dd>
+<h2>4. 初心者が絶対にはまる「ミスの要因」集</h2>
+<ul>
+    <li><strong>全角スペースの混入:</strong> コードの途中に全角スペースが入っていると動かなくなります。必ず「半角」で書きましょう。</li>
+    <li><strong>ファイル名のミス:</strong> <code>test.py.txt</code> のように、後ろに <code>.txt</code> が隠れていませんか？ 拡張子が表示される設定を確認しましょう。</li>
+    <li><strong>python か python3 か:</strong> Macをお使いの方は、<code>python</code> ではなく <code>python3</code> と打たないと動かない場合があります。</li>
+</ul>
 
-        <dt class="font-bold text-red-600">● python か python3 か</dt>
-        <dd class="text-sm">Macをお使いの方は、<code>python</code> ではなく <code>python3</code> と打たないと動かない場合があります。</dd>
-    </dl>
+<div class="alert-success">
+    まとめ：まずはこの「環境構築」さえクリアすれば、あとは楽しい自動化の世界が待っています！
 </div>
 
-<div class="alert-success mt-10">
-    <h3>まとめ</h3>
-    <p>まずはこの「環境構築」さえクリアすれば、あとは楽しい自動化の世界が待っています！</p>
-</div>
+<script>
+function copyCode(btn) {
+    const code = btn.previousElementSibling.innerText;
+    navigator.clipboard.writeText(code);
+    btn.innerText = 'コピー完了！';
+    setTimeout(() => btn.innerText = 'Copy', 2000);
+}
+</script>
 [/JP]

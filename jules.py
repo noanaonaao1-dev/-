@@ -2,8 +2,9 @@ import os
 import yaml
 import json
 from jinja2 import Environment, FileSystemLoader
-from datetime import datetime
+from datetime import datetime, date
 import re
+from sync_kv import sync_kv
 
 class JulesSSG:
     def __init__(self, content_dir='content', template_dir='templates', dist_dir='dist'):
@@ -24,8 +25,6 @@ class JulesSSG:
         if body_match:
             res['body'] = body_match.group(1).strip()
         else:
-            # If no BODY: tag, assume everything after TITLE/DESC is body
-            # but for consistency we recommend BODY:
             lines = block_text.split('\n')
             body_lines = [l for l in lines if not l.startswith('TITLE:') and not l.startswith('DESC:')]
             res['body'] = '\n'.join(body_lines).strip()
@@ -50,7 +49,6 @@ class JulesSSG:
         else:
             body_area = raw_content
 
-        # Extract [EN] and [JP] blocks
         langs = {}
         for lang in ['EN', 'JP']:
             pattern = rf'\[{lang}\](.*?)\[/{lang}\]'
@@ -63,6 +61,8 @@ class JulesSSG:
 
         if 'date' not in shared_meta:
             shared_meta['date'] = datetime.now().strftime('%Y-%m-%d')
+        elif isinstance(shared_meta['date'], (datetime, date)):
+            shared_meta['date'] = shared_meta['date'].strftime('%Y-%m-%d')
 
         if 'time' not in shared_meta:
             shared_meta['time'] = 5
@@ -93,8 +93,6 @@ class JulesSSG:
                         metadata.update(data)
                         metadata['lang'] = lang
                         metadata['url'] = f'/{lang}/{shared_meta["slug"]}.html'
-
-                        # Use slug for stats tracking
                         metadata['stats_id'] = shared_meta['slug']
 
                         self.pages.append(metadata)
@@ -107,7 +105,6 @@ class JulesSSG:
 
         # Generate index pages
         for lang in ['en', 'jp']:
-            # Filter pages by lang for the specific index, but keep all pages context if needed
             lang_pages = [p for p in self.pages if p['lang'] == lang]
             lang_pages.sort(key=lambda x: x['date'], reverse=True)
 
@@ -119,8 +116,30 @@ class JulesSSG:
             with open(index_path, 'w', encoding='utf-8') as f:
                 f.write(output)
 
-        # Root redirect
-        root_index = """<!DOCTYPE html><html><head><meta name="monetag" content="f14c21f39902f91f2fe7e4ee27f6e07f"><meta http-equiv="refresh" content="0;url=/jp/"></head></html>"""
+        # Root redirect with language detection
+        root_index = """<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PROG-AUTO-LAB</title>
+    <script>
+        (function() {
+            var lang = navigator.language || navigator.userLanguage;
+            if (lang && lang.toLowerCase().startsWith('ja')) {
+                window.location.href = '/jp/';
+            } else {
+                window.location.href = '/en/';
+            }
+        })();
+    </script>
+    <noscript>
+        <meta http-equiv="refresh" content="0;url=/en/">
+    </noscript>
+</head>
+<body>
+    <p>Redirecting... <a href="/en/">Click here</a> if you are not redirected.</p>
+</body>
+</html>"""
         with open(os.path.join(self.dist_dir, 'index.html'), 'w') as f:
             f.write(root_index)
 
@@ -134,6 +153,9 @@ class JulesSSG:
         admin_template = self.env.get_template('admin.html')
         with open(os.path.join(admin_dist, 'index.html'), 'w', encoding='utf-8') as f:
             f.write(admin_template.render())
+
+        # Optional: Sync to Cloudflare KV if credentials exist
+        sync_kv()
 
 if __name__ == '__main__':
     ssg = JulesSSG()
