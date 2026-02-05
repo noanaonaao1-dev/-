@@ -1,0 +1,91 @@
+---
+slug: gas-gmail-tracker
+date: 2024-03-11
+time: 15
+env: Google Apps Script, Google Sheets
+popular: true
+---
+
+[EN]
+TITLE: Build a Gmail Open Tracker with Google Apps Script (GAS)
+DESC: Want to know if your emails are being read? Create a private tracking pixel using GAS and Google Sheets.
+BODY:
+Gmail's built-in read receipts are only available for Workspace accounts. In this lab, we'll build a custom tracking pixel that works for any Gmail account using Google Apps Script.
+
+### How it Works
+1. **Tracking Pixel**: A tiny 1x1 transparent image hosted on a GAS Web App.
+2. **Logging**: When the recipient opens the email, their browser requests the image, triggering the GAS function.
+3. **Database**: The time and recipient's ID are logged into a Google Sheet.
+
+### Step 1: The GAS Code
+Create a new script at [script.google.com](https://script.google.com) and paste this:
+
+<pre>
+function doGet(e) {
+  var id = e.parameter.id;
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+
+  // Log the open event
+  sheet.appendRow([new Date(), id, e.parameter.user_agent]);
+
+  // Return a 1x1 transparent GIF
+  var clearGif = "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+  return ContentService.createTextOutput("")
+    .setMimeType(ContentService.MimeType.TEXT)
+    .append(Utilities.base64Decode(clearGif)); // This is a simplified version
+}
+</pre>
+
+### Step 2: Deployment
+Deploy as a **Web App** and set access to **"Anyone"**. Copy the URL.
+
+### Step 3: Usage
+Embed the tracking URL in your email's HTML:
+`<img src="YOUR_WEB_APP_URL?id=RecipientName" width="1" height="1">`
+
+Now, every time the email is opened, a new row appears in your Google Sheet!
+[/EN]
+
+[JP]
+TITLE: GASでGmailの開封確認（既読）ツールを自作する方法
+DESC: 相手がメールを読んだか知りたい？Google Apps Scriptとスプレッドシートを使って、自分専用のトラッキングピクセルを作る方法。
+BODY:
+Gmailの標準の開封確認機能は、法人向けのWorkspaceアカウントでしか使えません。今回は、GASを使って「誰が・いつ・メールを開いたか」をスプレッドシートに記録するツールを自作します。
+
+### 仕組み
+1. **トラッキングピクセル**: GASのウェブアプリでホストされた、目に見えない1x1ピクセルの透明画像。
+2. **ログ記録**: 相手がメールを開くと画像が読み込まれ、GASの関数が実行されます。
+3. **スプレッドシート**: 実行された時刻と識別ID（相手の名前など）をシートに自動追記します。
+
+### ステップ1：GASの実装
+[Google Apps Script](https://script.google.com)を開き、以下のコードを貼り付けてください。
+
+<pre>
+function doGet(e) {
+  var id = e.parameter.id; // 識別用のID
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getActiveSheet();
+
+  // 開封時刻とIDを記録
+  sheet.appendRow([new Date(), id]);
+
+  // 透明な1x1ピクセル画像を返す（バイナリ）
+  var pixel = Utilities.base64Decode("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+  return ContentService.createTextOutput()
+    .setMimeType(ContentService.MimeType.GIF)
+    .setContent(pixel);
+}
+</pre>
+
+### ステップ2：デプロイ
+1. 右上の「デプロイ」→「新しいデプロイ」を選択。
+2. 種類を「ウェブアプリ」にし、アクセスできるユーザーを**「全員（匿名ユーザーを含む）」**に設定してデプロイします。
+3. 発行されたURLをコピーします。
+
+### ステップ3：メールへの埋め込み
+メールを作成する際、HTMLモードや署名欄に以下のタグを埋め込みます。
+`<img src="コピーしたURL?id=送信先名" width="1" height="1">`
+
+### 注意点
+画像ブロック設定が有効な環境では正しく計測されますが、テキスト形式のみの受信者やプロキシ経由の場合は正確に測れないことがあります。あくまで簡易的なツールとして活用しましょう！
+[/JP]
