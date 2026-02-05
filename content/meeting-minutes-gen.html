@@ -1,0 +1,73 @@
+---
+slug: meeting-minutes-gen
+date: 2024-03-10
+time: 20
+env: Python 3.x, Whisper API, GPT-4
+popular: true
+---
+
+[EN]
+TITLE: Automated Meeting Minutes from Audio
+DESC: Recorded a meeting but no one wants to write the summary? Use Whisper + GPT to automate it.
+BODY:
+Transcription is only half the battle. We'll use OpenAI's **Whisper** to convert speech to text, and then **GPT-4** to summarize it into actionable bullet points.
+
+### The Pipeline
+1. **Whisper**: Transcribe `meeting.mp3`.
+2. **GPT-4**: Distill 60 minutes of talk into 5 key points.
+
+<pre>
+import openai
+
+# 1. Transcribe
+audio_file = open("meeting.mp3", "rb")
+transcript = openai.Audio.transcribe("whisper-1", audio_file)
+
+# 2. Summarize
+response = openai.ChatCompletion.create(
+    model="gpt-4",
+    messages=[
+        {"role": "system", "content": "You are a professional secretary."},
+        {"role": "user", "content": f"Summarize this: {transcript['text']}"}
+    ]
+)
+print(response.choices[0].message.content)
+</pre>
+[/EN]
+
+[JP]
+TITLE: 会議録自動生成ツール：音声から要約まで
+DESC: 録音した会議の文字起こしと要約を自動化。WhisperとGPT-4を組み合わせて「動ける議事録」を作ります。
+BODY:
+会議は終わった後のまとめが一番大変です。AIを使って、録音データから「誰が何を言ったか」「次のアクションは何か」を自動で抽出しましょう。
+
+### 手順
+1. **Whisper**: 音声ファイルをテキスト化。
+2. **GPT-4**: 長い文章を重要ポイントだけに凝縮。
+
+### 実装コード
+<pre>
+import openai
+
+# 音声ファイルを読み込み
+audio = open("meeting.mp3", "rb")
+
+# 1. 文字起こし (Whisper)
+transcript = openai.Audio.transcribe("whisper-1", audio)
+
+# 2. 要約 (GPT-4)
+response = openai.ChatCompletion.create(
+    model="gpt-4",
+    messages=[
+        {"role": "system", "content": "あなたは優秀な秘書です。要点を箇条書きでまとめてください。"},
+        {"role": "user", "content": transcript['text']}
+    ]
+)
+
+print("--- 議事録要約 ---")
+print(response.choices[0].message.content)
+</pre>
+
+### 革命的な時短
+1時間の会議が、わずか数分で整理されたテキストになります。
+[/JP]

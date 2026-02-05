@@ -1,0 +1,56 @@
+---
+slug: email-ghost-writer
+date: 2024-03-08
+time: 10
+env: Python 3.x, OpenAI API
+popular: true
+---
+
+[EN]
+TITLE: AI Email Ghost Writer: Draft Replies Faster
+DESC: Integrate OpenAI with Python to automatically draft professional email replies based on a few bullet points.
+BODY:
+Writing "Thank you for the meeting..." for the 100th time? Let's automate it. This tool takes your rough notes and turns them into a polite, professional email.
+
+<pre>
+import openai
+
+def draft_email(notes):
+    prompt = f"Write a professional email based on these notes: {notes}"
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return response.choices[0].message.content
+
+print(draft_email("Meeting at 2pm, thanks for the data, send report by Friday"))
+</pre>
+[/EN]
+
+[JP]
+TITLE: AIメール代筆ツール：下書き時間を9割削減
+DESC: OpenAI APIとPythonを連携。箇条書きのメモから、失礼のない完璧なビジネスメールを自動生成します。
+BODY:
+「打ち合わせのお礼」や「日程調整」など、定型的なメール作成に時間を取られていませんか？AIを使って、ラフなメモから丁寧な文章を錬成するツールを作ります。
+
+### 実装コード
+<pre>
+import openai
+
+openai.api_key = "あなたのAPIキー"
+
+def generate_reply(memo):
+    prompt = f"以下のメモを元に、丁寧なビジネスメールを作成して：\n{memo}"
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return response.choices[0].message.content
+
+memo = "14時会議感謝、データ確認済み、金曜までに修正版送る"
+print(generate_reply(memo))
+</pre>
+
+### 活用シーン
+スマホでパッとメモを入力し、PCでこのスクリプトを走らせれば、送信ボタンを押すだけの状態になります。
+[/JP]

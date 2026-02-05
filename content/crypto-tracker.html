@@ -1,0 +1,56 @@
+---
+slug: crypto-tracker
+date: 2024-03-09
+time: 7
+env: Python 3.x, Requests
+popular: false
+---
+
+[EN]
+TITLE: Real-time Crypto Portfolio Dashboard
+DESC: Build a command-line dashboard that tracks your crypto holdings using the CoinGecko API.
+BODY:
+Stay on top of the market without opening a browser. We'll pull live prices for BTC, ETH, and SOL directly into your terminal.
+
+<pre>
+import requests
+
+def get_prices(coins):
+    ids = ','.join(coins)
+    url = f"https://api.coingecko.com/api/v3/simple/price?ids={ids}&vs_currencies=usd"
+    data = requests.get(url).json()
+    for coin in coins:
+        print(f"{coin.upper()}: ${data[coin]['usd']}")
+
+get_prices(['bitcoin', 'ethereum', 'solana'])
+</pre>
+[/EN]
+
+[JP]
+TITLE: 爆速クリプト・ポートフォリオ監視
+DESC: CoinGecko APIを使用して、ビットコインやイーサリアムの現在価格をターミナル上にリアルタイム表示します。
+BODY:
+ブラウザを開く手間を省きましょう。PythonでAPIを叩き、自分だけの仮想通貨ウォッチリストを作成します。
+
+### 実装コード
+<pre>
+import requests
+
+def show_portfolio():
+    # 取得したい通貨のIDを指定
+    coins = 'bitcoin,ethereum,solana'
+    url = f"https://api.coingecko.com/api/v3/simple/price?ids={coins}&vs_currencies=jpy"
+
+    res = requests.get(url).json()
+
+    print("--- 現在のレート (JPY) ---")
+    print(f"BTC: {res['bitcoin']['jpy']:,}円")
+    print(f"ETH: {res['ethereum']['jpy']:,}円")
+    print(f"SOL: {res['solana']['jpy']:,}円")
+
+show_portfolio()
+</pre>
+
+### 応用
+これを1分おきにループさせれば、仕事中にこっそり価格をチェックするデスクトップガジェットになります。
+[/JP]

@@ -1,0 +1,82 @@
+---
+slug: auto-video-compressor
+date: 2024-03-05
+time: 8
+env: Python 3.x, FFmpeg
+popular: true
+---
+
+[EN]
+TITLE: Bulk Video Compressor for Social Media
+DESC: Learn how to automate FFmpeg to compress multiple videos at once, perfect for TikTok and Instagram creators.
+BODY:
+In this lab, we'll build a Python script that takes a folder of heavy 4K videos and crushes them down to social-media-friendly sizes without losing visible quality.
+
+### Prerequisites
+You need **FFmpeg** installed on your system.
+- **Windows:** `choco install ffmpeg`
+- **Mac:** `brew install ffmpeg`
+
+### The Python Script
+Save this as `compress.py`:
+
+<pre>
+import subprocess
+import os
+
+def compress_video(input_path, output_path):
+    cmd = [
+        'ffmpeg', '-i', input_path,
+        '-vcodec', 'libx264', '-crf', '28',
+        output_path
+    ]
+    subprocess.run(cmd)
+
+folder = './input_videos'
+for filename in os.listdir(folder):
+    if filename.endswith(".mp4"):
+        print(f"Compressing {filename}...")
+        compress_video(os.path.join(folder, filename), os.path.join('./output', filename))
+</pre>
+
+This uses the **libx264** codec and a **CRF** value of 28, which is the "sweet spot" for mobile viewing.
+[/EN]
+
+[JP]
+TITLE: SNS向け動画一括圧縮ツール
+DESC: FFmpegをPythonで自動操作し、大量の動画をSNS（TikTokやInstagram）向けに一瞬で最適化する方法。
+BODY:
+動画編集者やSNSクリエイターにとって、重い動画ファイルを一つずつ変換するのは苦行です。今回はPythonを使って、フォルダ内の全動画を一括で圧縮するツールを作ります。
+
+### 準備するもの
+**FFmpeg** というツールをパソコンにインストールする必要があります。
+- **Windows:** `choco install ffmpeg` または公式サイトからダウンロード
+- **Mac:** `brew install ffmpeg`
+
+### 実装コード
+`compress.py` という名前で保存してください：
+
+<pre>
+import subprocess
+import os
+
+def compress_video(input_path, output_path):
+    # FFmpegコマンドを組み立て
+    cmd = [
+        'ffmpeg', '-i', input_path,
+        '-vcodec', 'libx264', '-crf', '28',
+        output_path
+    ]
+    subprocess.run(cmd)
+
+# 入力フォルダを指定
+folder = './input_videos'
+for filename in os.listdir(folder):
+    if filename.endswith(".mp4"):
+        print(f"圧縮中: {filename}...")
+        compress_video(os.path.join(folder, filename), os.path.join('./output', filename))
+</pre>
+
+### ここがポイント
+**CRF (Constant Rate Factor)** という値で画質を調整しています。`28` はスマホで見る分には十分綺麗で、かつファイルサイズを劇的に小さくできる魔法の数字です。
+[/JP]
