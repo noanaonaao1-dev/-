@@ -11,9 +11,6 @@
     </p>
 </section>
 
-<!-- Monetag Ad near top -->
-<div class="ad-placeholder reveal">Monetag Ad Placement</div>
-
 {% set popular_pages = pages | selectattr("popular", "defined") | selectattr("popular", "equalto", true) | list %}
 {% if popular_pages %}
 <section class="mb-20 reveal">

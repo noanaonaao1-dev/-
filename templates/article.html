@@ -45,18 +45,20 @@
             {{ content | safe }}
         </div>
 
-        <!-- Monetag Direct Link Placement -->
+        <!-- Monetag Direct Link Placement (EN ONLY) -->
+        {% if lang == 'en' %}
         <div class="mt-16 pt-12 border-t border-slate-100">
             <div class="bg-gradient-to-br from-brand-500 to-brand-700 rounded-3xl p-8 md:p-12 text-center text-white shadow-xl">
-                <h3 class="text-2xl font-bold mb-4">{{ 'Download Full Automation Pack' if lang == 'en' else '完全版自動化パックをダウンロード' }}</h3>
-                <p class="text-brand-100 mb-8 max-w-md mx-auto">{{ 'Get all source codes, advanced configurations, and exclusive troubleshooting guides.' if lang == 'en' else 'すべてのソースコード、高度な設定、限定のトラブルシューティングガイドを入手できます。' }}</p>
+                <h3 class="text-2xl font-bold mb-4">Download Full Automation Pack</h3>
+                <p class="text-brand-100 mb-8 max-w-md mx-auto">Get all source codes, advanced configurations, and exclusive troubleshooting guides.</p>
                 <a href="https://otieu.com/4/10570616" target="_blank" class="inline-flex items-center gap-2 bg-white text-brand-600 px-8 py-4 rounded-full font-black text-lg hover:scale-105 transition-transform shadow-lg">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                    {{ 'FREE DOWNLOAD' if lang == 'en' else '無料ダウンロード' }}
+                    FREE DOWNLOAD
                 </a>
                 <p class="mt-4 text-[10px] text-brand-200 uppercase tracking-widest font-bold">Secure Verification Required</p>
             </div>
         </div>
+        {% endif %}
     </div>
 </article>
 
