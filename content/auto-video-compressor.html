@@ -11,16 +11,17 @@ TITLE: Bulk Video Compressor for Social Media
 DESC: Learn how to automate FFmpeg to compress multiple videos at once, perfect for TikTok and Instagram creators.
 BODY:
 <div class="stage-card stage-prep">
-<span class="stage-label label-prep">Stage 1: Preparation</span>
+<div class="h-intro-pill">Preparation</div>
+<h2 class="h-section-title"><span class="h-step-badge">Step 1</span> Install Tools</h2>
 
-### Prerequisites
 You need **FFmpeg** installed on your system.
 - **Windows:** `choco install ffmpeg`
 - **Mac:** `brew install ffmpeg`
 </div>
 
 <div class="stage-card stage-core">
-<span class="stage-label label-core">Stage 2: Code</span>
+<div class="h-step-number">02</div>
+<h2 class="h-section-title"><span class="h-step-badge">Step 2</span> Implementation</h2>
 
 ### The Python Script
 Save this as `compress.py`:
@@ -46,7 +47,7 @@ for filename in os.listdir(folder):
 </div>
 
 <div class="stage-card stage-expert">
-<span class="stage-label label-expert">Stage 3: Optimization</span>
+<h2 class="h-section-title">Why these settings?</h2>
 
 This uses the **libx264** codec and a **CRF** value of 28, which is the "sweet spot" for mobile viewing.
 </div>
@@ -57,7 +58,8 @@ TITLE: SNS向け動画一括圧縮ツール
 DESC: FFmpegをPythonで自動操作し、大量の動画をSNS（TikTokやInstagram）向けに一瞬で最適化する方法。
 BODY:
 <div class="stage-card stage-prep">
-<span class="stage-label label-prep">ステップ 1：準備</span>
+<div class="h-intro-pill">準備</div>
+<h2 class="h-section-title"><span class="h-step-badge">ステップ 1</span> 環境構築</h2>
 
 動画編集者やSNSクリエイターにとって、重い動画ファイルを一つずつ変換するのは苦行です。今回はPythonを使って、フォルダ内の全動画を一括で圧縮するツールを作ります。
 
@@ -67,9 +69,10 @@ BODY:
 </div>
 
 <div class="stage-card stage-core">
-<span class="stage-label label-core">ステップ 2：実装</span>
+<div class="h-step-number">01</div>
+<h2 class="h-section-title"><span class="h-step-badge">ステップ 2</span> プログラム作成</h2>
 
-### 実装コード
+<h3 class="h-sub-title">実装コード</h3>
 `compress.py` という名前で保存してください：
 
 <pre>
@@ -95,7 +98,7 @@ for filename in os.listdir(folder):
 </div>
 
 <div class="stage-card stage-expert">
-<span class="stage-label label-expert">ステップ 3：解説</span>
+<h2 class="h-section-title">解説</h2>
 
 **CRF (Constant Rate Factor)** という値で画質を調整しています。`28` はスマホで見る分には十分綺麗で、かつファイルサイズを劇的に小さくできる魔法の数字です。
 </div>
