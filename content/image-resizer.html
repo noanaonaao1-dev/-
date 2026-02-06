@@ -37,21 +37,12 @@ def resize_images(input_dir, output_dir, width):
             print(f"Processed: {filename}")
 
 resize_images('input', 'output', 800)</code></pre>
-<button class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded text-xs font-bold hover:bg-brand-700 transition-colors" onclick="copyCode(this)">Copy</button>
 </div>
 
 
 <h2>3. Why This is Useful</h2>
 <p>By automating this, you ensure that every image on your site has the same maximum width, which improves page load speed and SEO consistency. You can even extend this to add watermarks!</p>
 
-<script>
-function copyCode(btn) {
-    const code = btn.previousElementSibling.innerText;
-    navigator.clipboard.writeText(code);
-    btn.innerText = 'Copied!';
-    setTimeout(() => btn.innerText = 'Copy', 2000);
-}
-</script>
 [/EN]
 
 [JP]
@@ -92,7 +83,6 @@ for file in os.listdir(input_dir):
         # 保存
         img.save(os.path.join(output_dir, file), optimize=True, quality=85)
         print(f"完了: {file}")</code></pre>
-<button class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded text-xs font-bold hover:bg-brand-700 transition-colors" onclick="copyCode(this)">コードをコピー</button>
 </div>
 
 
@@ -106,12 +96,4 @@ for file in os.listdir(input_dir):
     <strong>注意点：</strong> 元の画像を上書きしないよう、必ず別の出力フォルダ（outputなど）に保存するようにしましょう。
 </div>
 
-<script>
-function copyCode(btn) {
-    const code = btn.previousElementSibling.innerText;
-    navigator.clipboard.writeText(code);
-    btn.innerText = 'コピー完了！';
-    setTimeout(() => btn.innerText = 'コードをコピー', 2000);
-}
-</script>
 [/JP]

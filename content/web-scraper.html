@@ -1,114 +1,63 @@
 ---
 slug: web-scraper
-date: 2024-02-02
-time: 20
+date: 2024-02-15
+time: 10
 env: Python 3.x, BeautifulSoup
 ---
 
 [EN]
-TITLE: Web Scraping 101: Extracting Data Like a Pro
-DESC: Learn how to collect data from the web automatically. Perfect for price monitoring or lead generation.
+TITLE: Web Scraping 101: Extracting Data with BeautifulSoup
+DESC: A beginner's guide to pulling data from websites using Python and BeautifulSoup.
 BODY:
-<p>In the digital age, data is gold. But copying and pasting data from websites is a waste of time. Web scraping allows you to automate this process. We'll use <code>BeautifulSoup</code> to extract information from an HTML page.</p>
+<div class="stage-card stage-prep">
+<div class="h-intro-pill">Tools</div>
+<h2 class="h-section-title">The Scraper's Kit</h2>
 
-<h2>1. The Legal & Ethical Note</h2>
-<p>Always check a website's <code>robots.txt</code> file before scraping. Don't spam the server with thousands of requests per second, and never scrape private data without permission.</p>
-
-<h2>2. Installation</h2>
+<p>To start scraping, you need the <code>requests</code> and <code>beautifulsoup4</code> libraries.</p>
 <pre><code>pip install requests beautifulsoup4</code></pre>
+</div>
 
-<h2>3. Simple News Scraper</h2>
-<p>This script fetches a webpage and prints out all the headlines found in <code>&lt;h2&gt;</code> tags.</p>
+<div class="stage-card stage-core">
+<div class="h-step-number">01</div>
+<h2 class="h-section-title"><span class="h-step-badge">Step 1</span> Basic Scraper</h2>
 
-<div class="copy-btn-wrapper">
 <pre><code>import requests
 from bs4 import BeautifulSoup
 
-url = "https://example-news-site.com"
+url = 'https://news.ycombinator.com/'
 response = requests.get(url)
+soup = BeautifulSoup(response.text, 'html.parser')
 
-if response.status_code == 200:
-    soup = BeautifulSoup(response.text, 'html.parser')
-    headlines = soup.find_all('h2')
-
-    for i, h in enumerate(headlines):
-        print(f"{i+1}: {h.get_text(strip=True)}")
-else:
-    print("Failed to retrieve the page")</code></pre>
-<button class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded text-xs font-bold hover:bg-brand-700 transition-colors" onclick="copyCode(this)">Copy</button>
+for link in soup.find_all('span', class_='titleline'):
+    print(link.text)</code></pre>
 </div>
-
-
-<h2>4. Next Steps</h2>
-<p>Once you extract data, you can save it to a CSV file or a database for further analysis. Web scraping is the first step in building price comparison tools or news aggregators.</p>
-
-<script>
-function copyCode(btn) {
-    const code = btn.previousElementSibling.innerText;
-    navigator.clipboard.writeText(code);
-    btn.innerText = 'Copied!';
-    setTimeout(() => btn.innerText = 'Copy', 2000);
-}
-</script>
 [/EN]
 
 [JP]
-TITLE: 初めてのWebスクレイピング：データ収集を自動化する方法
-DESC: ネット上の情報を手作業でコピペするのは今日で終わりにしましょう。Pythonで効率的にデータを集める手法を解説。
+TITLE: Webスクレイピング入門：BeautifulSoupでデータを抽出する
+DESC: PythonとBeautifulSoupを使って、ウェブサイトから情報を自動で取得する方法を解説します。
 BODY:
-<p>Webサイトにある大量のデータ（価格情報、ニュース、商品リストなど）を自動で集める技術、それが「Webスクレイピング」です。今回はPythonの定番ライブラリ <code>BeautifulSoup</code> を使った基本を紹介します。</p>
+<div class="stage-card stage-prep">
+<div class="h-intro-pill">準備</div>
+<h2 class="h-section-title">必要なツール</h2>
 
-<h2>1. マナーとルール（超重要）</h2>
-<p>スクレイピングは強力ですが、ルールを守らないとサイトに負荷をかけたり、法的なトラブルになる可能性があります。</p>
-<ul>
-    <li>サーバーに負荷をかけない（<code>time.sleep()</code>で間隔をあける）。</li>
-    <li>利用規約で禁止されていないか確認する。</li>
-    <li>個人情報の無断収集はしない。</li>
-</ul>
-
-<h2>2. 必要な準備</h2>
+<p>スクレイピングを始めるには、<code>requests</code> と <code>beautifulsoup4</code> ライブラリが必要です。</p>
 <pre><code>pip install requests beautifulsoup4</code></pre>
+</div>
 
-<h2>3. ニュースの見出しを取得するスクリプト</h2>
-<p>以下のコードは、特定のサイトから <code>&lt;h2&gt;</code> タグで囲まれた見出しをすべて抜き出す例です。</p>
+<div class="stage-card stage-core">
+<div class="h-step-number">01</div>
+<h2 class="h-section-title"><span class="h-step-badge">ステップ 1</span> 基本的なコード</h2>
 
-<div class="copy-btn-wrapper">
 <pre><code>import requests
 from bs4 import BeautifulSoup
-import time
 
-url = "https://example.com/news" # 収集したいURL
+url = 'https://news.ycombinator.com/'
 res = requests.get(url)
+soup = BeautifulSoup(res.text, 'html.parser')
 
-# ページが正常に開けたか確認
-if res.status_code == 200:
-    soup = BeautifulSoup(res.text, 'html.parser')
-    # h2タグをすべて探す
-    headlines = soup.find_all('h2')
-
-    for i, h in enumerate(headlines):
-        print(f"見出し{i+1}: {h.get_text().strip()}")
-        # 1秒待機（サーバーへの優しさ）
-        time.sleep(1)
-else:
-    print("アクセスに失敗しました")</code></pre>
-<button class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded text-xs font-bold hover:bg-brand-700 transition-colors" onclick="copyCode(this)">コードをコピー</button>
+# 記事のタイトルを取得して表示
+for link in soup.find_all('span', class_='titleline'):
+    print(link.text)</code></pre>
 </div>
-
-
-<h2>4. 取得したデータの活用</h2>
-<p>取得したデータを <code>pandas</code> ライブラリと組み合わせてExcel（CSV）に保存すれば、立派な市場調査レポートの完成です。</p>
-
-<div class="alert-info">
-    <strong>さらに学ぶには：</strong> 最近の動的なサイト（JavaScriptで中身が変わるサイト）の場合は、<code>Selenium</code> や <code>Playwright</code> というツールを使う必要があります。
-</div>
-
-<script>
-function copyCode(btn) {
-    const code = btn.previousElementSibling.innerText;
-    navigator.clipboard.writeText(code);
-    btn.innerText = 'コピー完了！';
-    setTimeout(() => btn.innerText = 'コードをコピー', 2000);
-}
-</script>
 [/JP]

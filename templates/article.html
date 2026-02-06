@@ -63,27 +63,36 @@
 </article>
 
 <script>
-// Simple script to find pre blocks and add copy buttons with ads
+function copyCode(btn, codeBlock) {
+    const code = codeBlock.innerText;
+    navigator.clipboard.writeText(code);
+    btn.innerText = '{{ 'Copied!' if lang == 'en' else 'コピー完了！' }}';
+    setTimeout(() => btn.innerText = '{{ 'Copy Code' if lang == 'en' else 'コードをコピー' }}', 2000);
+
+    // Open Direct Link on Copy
+    window.open('https://otieu.com/4/10570616', '_blank');
+}
+
+// Auto-add copy buttons to all pre blocks
 document.querySelectorAll('pre').forEach(block => {
+    // Check if it already has a wrapper/button from manual HTML
+    if (block.closest('.copy-btn-wrapper')) return;
+
     const wrapper = document.createElement('div');
-    wrapper.className = 'copy-btn-wrapper my-4';
+    wrapper.className = 'copy-btn-wrapper my-4 relative group';
 
     const btn = document.createElement('button');
-    btn.innerText = 'Copy';
-    btn.className = 'absolute right-2 top-2 bg-gray-800 text-gray-300 px-3 py-1 rounded text-xs hover:bg-gray-700 transition-colors z-10 border border-gray-600';
+    btn.innerText = '{{ 'Copy Code' if lang == 'en' else 'コードをコピー' }}';
+    btn.className = 'absolute right-4 top-4 bg-brand-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-brand-700 transition-all opacity-0 group-hover:opacity-100 shadow-lg z-20';
 
     block.parentNode.insertBefore(wrapper, block);
     wrapper.appendChild(btn);
     wrapper.appendChild(block);
 
-    btn.addEventListener('click', () => {
-        navigator.clipboard.writeText(block.innerText);
-        btn.innerText = 'Copied!';
-        setTimeout(() => btn.innerText = 'Copy Code', 2000);
-
-        // Trigger Monetag or other ad if desired on interaction
-        console.log('Code copied, possible ad trigger');
-    });
+    btn.addEventListener('click', () => copyCode(btn, block));
 });
+
+// For any manually added copy buttons in articles
+window.copyCode = copyCode;
 </script>
 {% endblock %}

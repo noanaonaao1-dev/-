@@ -10,13 +10,13 @@ popular: true
 TITLE: Automated Meeting Minutes from Audio
 DESC: Recorded a meeting but no one wants to write the summary? Use Whisper + GPT to automate it.
 BODY:
-Transcription is only half the battle. We'll use OpenAI's **Whisper** to convert speech to text, and then **GPT-4** to summarize it into actionable bullet points.
+Transcription is only half the battle. We'll use OpenAI's <strong>Whisper** to convert speech to text, and then **GPT-4</strong> to summarize it into actionable bullet points.
 
 &nbsp;
 
-### The Pipeline
-1. **Whisper**: Transcribe `meeting.mp3`.
-2. **GPT-4**: Distill 60 minutes of talk into 5 key points.
+<h3 class="h-sub-title">The Pipeline
+1. <strong>Whisper</strong>: Transcribe `meeting.mp3`.
+2. <strong>GPT-4</strong>: Distill 60 minutes of talk into 5 key points.
 
 <pre>
 import openai
@@ -45,13 +45,13 @@ BODY:
 
 &nbsp;
 
-### 手順
-1. **Whisper**: 音声ファイルをテキスト化。
-2. **GPT-4**: 長い文章を重要ポイントだけに凝縮。
+<h3 class="h-sub-title">手順
+1. <strong>Whisper</strong>: 音声ファイルをテキスト化。
+2. <strong>GPT-4</strong>: 長い文章を重要ポイントだけに凝縮。
 
 &nbsp;
 
-### 実装コード
+<h3 class="h-sub-title">実装コード
 <pre>
 import openai
 
@@ -76,6 +76,6 @@ print(response.choices[0].message.content)
 
 &nbsp;
 
-### 革命的な時短
+<h3 class="h-sub-title">革命的な時短
 1時間の会議が、わずか数分で整理されたテキストになります。
 [/JP]

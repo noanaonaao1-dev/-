@@ -10,18 +10,24 @@ popular: true
 TITLE: Build a Price Tracker with Discord Notifications
 DESC: Stop refreshing the page! Build a bot that monitors product prices and alerts you via Discord.
 BODY:
-Ever missed a 50% discount because you weren't looking? This Python script checks Amazon (or any store) every hour and pings your Discord server when the price drops.
+<div class="stage-card stage-prep">
+<div class="h-intro-pill">Overview</div>
+<h2 class="h-section-title">Never miss a deal</h2>
 
-&nbsp;
+<p>Ever missed a 50% discount because you weren't looking? This Python script checks Amazon (or any store) every hour and pings your Discord server when the price drops.</p>
 
-### Architecture
-1. **Scraper**: Pulls the current price from the HTML.
-2. **Logic**: Compares it with your "Target Price".
-3. **Webhook**: Sends a POST request to Discord.
+<h3 class="h-sub-title">Architecture</h3>
+<ol>
+    <li><strong>Scraper</strong>: Pulls the current price from the HTML.</li>
+    <li><strong>Logic</strong>: Compares it with your "Target Price".</li>
+    <li><strong>Webhook</strong>: Sends a POST request to Discord.</li>
+</ol>
+</div>
 
-&nbsp;
+<div class="stage-card stage-core">
+<div class="h-step-number">01</div>
+<h2 class="h-section-title"><span class="h-step-badge">Step 1</span> The Code</h2>
 
-### The Code
 <pre>
 import requests
 from bs4 import BeautifulSoup
@@ -40,34 +46,43 @@ def check_price():
 
 def send_discord_alert(price):
     webhook_url = "YOUR_DISCORD_WEBHOOK_URL"
-    data = {"content": f"🚨 PRICE DROP! Now ${price}. Buy here: {URL}"}
+    data = {"content": f"🚨 PRICE DROP! Now \${price}. Buy here: {URL}"}
     requests.post(webhook_url, json=data)
 
 check_price()
 </pre>
+</div>
 
-&nbsp;
+<div class="stage-card stage-expert">
+<div class="h-intro-pill">Automation</div>
+<h2 class="h-section-title">Deployment</h2>
 
-### Pro Tip
-Use **GitHub Actions** to run this script every 60 minutes for free!
+<p>Use <strong>GitHub Actions</strong> to run this script every 60 minutes for free!</p>
+</div>
 [/EN]
 
 [JP]
 TITLE: Discord通知付き最安値追跡ボット
 DESC: 欲しい商品の値下げを見逃さない！Pythonで価格を監視し、安くなったらDiscordに通知する仕組み。
 BODY:
-「昨日まで安かったのに...」という後悔をなくしましょう。Pythonを使って、ECサイトの価格を定期的にチェックし、目標価格を下回った瞬間にDiscordへメッセージを飛ばすボットを構築します。
+<div class="stage-card stage-prep">
+<div class="h-intro-pill">概要</div>
+<h2 class="h-section-title">最安値を逃さない</h2>
 
-&nbsp;
+<p>「昨日まで安かったのに...」という後悔をなくしましょう。Pythonを使って、ECサイトの価格を定期的にチェックし、目標価格を下回った瞬間にDiscordへメッセージを飛ばすボットを構築します。</p>
 
-### 仕組み
-1. **スクレイピング**: サイトから現在の価格を取得。
-2. **ロジック**: 「目標価格」と比較。
-3. **Webhook**: Discordのチャンネルに通知を送信。
+<h3 class="h-sub-title">仕組み</h3>
+<ol>
+    <li><strong>スクレイピング</strong>: サイトから現在の価格を取得。</li>
+    <li><strong>ロジック</strong>: 「目標価格」と比較。</li>
+    <li><strong>Webhook</strong>: Discordのチャンネルに通知を送信。</li>
+</ol>
+</div>
 
-&nbsp;
+<div class="stage-card stage-core">
+<div class="h-step-number">01</div>
+<h2 class="h-section-title"><span class="h-step-badge">ステップ 1</span> 実装コード</h2>
 
-### 実装コード
 <pre>
 import requests
 from bs4 import BeautifulSoup
@@ -93,9 +108,12 @@ def send_discord_alert(price):
 
 check_price()
 </pre>
+</div>
 
-&nbsp;
+<div class="stage-card stage-expert">
+<div class="h-intro-pill">運用</div>
+<h2 class="h-section-title">サーバーレス運用</h2>
 
-### 運用のアドバイス
-**GitHub Actions** を使えば、このプログラムを24時間、1時間おきに無料で実行し続けることができます。サーバー代は0円です。
+<p><strong>GitHub Actions</strong> を使えば、このプログラムを24時間、1時間おきに無料で実行し続けることができます。サーバー代は0円です。</p>
+</div>
 [/JP]

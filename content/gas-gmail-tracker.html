@@ -14,17 +14,19 @@ BODY:
 <div class="h-intro-pill">Concept</div>
 <h2 class="h-section-title">How it Works</h2>
 
-Gmail's built-in read receipts are only available for Workspace accounts. In this lab, we'll build a custom tracking pixel that works for any Gmail account using Google Apps Script.
+<p>Gmail's built-in read receipts are only available for Workspace accounts. In this lab, we'll build a custom tracking pixel that works for any Gmail account using Google Apps Script.</p>
 
-1. **Tracking Pixel**: A tiny 1x1 transparent image hosted on a GAS Web App.
-2. **Logging**: When the recipient opens the email, their GAS logs the event.
+<ol>
+    <li><strong>Tracking Pixel</strong>: A tiny 1x1 transparent image hosted on a GAS Web App.</li>
+    <li><strong>Logging</strong>: When the recipient opens the email, their GAS logs the event.</li>
+</ol>
 </div>
 
 <div class="stage-card stage-core">
 <div class="h-step-number">01</div>
 <h2 class="h-section-title"><span class="h-step-badge">Step 1</span> GAS Script</h2>
 
-Create a new script at [script.google.com](https://script.google.com) and paste this:
+<p>Create a new script at <a href="https://script.google.com">script.google.com</a> and paste this:</p>
 
 <pre>
 function doGet(e) {
@@ -40,15 +42,15 @@ function doGet(e) {
 </pre>
 
 <h3 class="h-sub-title">Deployment</h3>
-Deploy as a **Web App** and set access to **"Anyone"**.
+<p>Deploy as a <strong>Web App</strong> and set access to <strong>"Anyone"</strong>.</p>
 </div>
 
 <div class="stage-card stage-expert">
 <div class="h-step-number">02</div>
 <h2 class="h-section-title"><span class="h-step-badge">Step 2</span> Usage</h2>
 
-Embed the tracking URL in your email's HTML:
-`<img src="YOUR_WEB_APP_URL?id=RecipientName" width="1" height="1">`
+<p>Embed the tracking URL in your email's HTML:</p>
+<code>&lt;img src="YOUR_WEB_APP_URL?id=RecipientName" width="1" height="1"&gt;</code>
 </div>
 [/EN]
 
@@ -60,17 +62,19 @@ BODY:
 <div class="h-intro-pill">はじめに</div>
 <h2 class="h-section-title">仕組みを理解する</h2>
 
-Gmailの標準の開封確認機能は、法人向けのWorkspaceアカウントでしか使えません。今回は、GASを使って「誰が・いつ・メールを開いたか」をスプレッドシートに記録するツールを自作します。
+<p>Gmailの標準の開封確認機能は、法人向けのWorkspaceアカウントでしか使えません。今回は、GASを使って「誰が・いつ・メールを開いたか」をスプレッドシートに記録するツールを自作します。</p>
 
-*   **トラッキングピクセル**: 目に見えない1x1ピクセルの透明画像。
-*   **ログ記録**: 画像が読み込まれるとGASが実行されます。
+<ul>
+    <li><strong>トラッキングピクセル</strong>: 目に見えない1x1ピクセルの透明画像。</li>
+    <li><strong>ログ記録</strong>: 画像が読み込まれるとGASが実行されます。</li>
+</ul>
 </div>
 
 <div class="stage-card stage-core">
 <div class="h-step-number">01</div>
 <h2 class="h-section-title"><span class="h-step-badge">ステップ 1</span> GASの実装</h2>
 
-[Google Apps Script](https://script.google.com)を開き、以下のコードを貼り付けます。
+<p><a href="https://script.google.com">Google Apps Script</a>を開き、以下のコードを貼り付けます。</p>
 
 <pre>
 function doGet(e) {
@@ -87,15 +91,17 @@ function doGet(e) {
 </pre>
 
 <h3 class="h-sub-title">デプロイの手順</h3>
-1. 「デプロイ」→「新しいデプロイ」を選択。
-2. 種類を「ウェブアプリ」にし、アクセスできるユーザーを**「全員」**に設定します。
+<ol>
+    <li>「デプロイ」→「新しいデプロイ」を選択。</li>
+    <li>種類を「ウェブアプリ」にし、アクセスできるユーザーを<strong>「全員」</strong>に設定します。</li>
+</ol>
 </div>
 
 <div class="stage-card stage-expert">
 <div class="h-step-number">02</div>
 <h2 class="h-section-title"><span class="h-step-badge">ステップ 2</span> メールに埋め込む</h2>
 
-メールのHTMLモードや署名欄に以下のタグを埋め込みます。
-`<img src="コピーしたURL?id=送信先名" width="1" height="1">`
+<p>メールのHTMLモードや署名欄に以下のタグを埋め込みます。</p>
+<code>&lt;img src="コピーしたURL?id=送信先名" width="1" height="1"&gt;</code>
 </div>
 [/JP]
