@@ -1,6 +1,7 @@
 import os
 import yaml
 import json
+import markdown
 from jinja2 import Environment, FileSystemLoader
 from datetime import datetime, date
 import re
@@ -22,12 +23,17 @@ class JulesSSG:
 
         if title_match: res['title'] = title_match.group(1).strip()
         if desc_match: res['description'] = desc_match.group(1).strip()
+
+        raw_body = ""
         if body_match:
-            res['body'] = body_match.group(1).strip()
+            raw_body = body_match.group(1).strip()
         else:
             lines = block_text.split('\n')
             body_lines = [l for l in lines if not l.startswith('TITLE:') and not l.startswith('DESC:')]
-            res['body'] = '\n'.join(body_lines).strip()
+            raw_body = '\n'.join(body_lines).strip()
+
+        # Convert Markdown to HTML for the body
+        res['body'] = markdown.markdown(raw_body, extensions=['extra', 'nl2br'])
 
         return res
 

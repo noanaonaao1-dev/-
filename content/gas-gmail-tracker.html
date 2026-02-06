@@ -12,10 +12,14 @@ DESC: Want to know if your emails are being read? Create a private tracking pixe
 BODY:
 Gmail's built-in read receipts are only available for Workspace accounts. In this lab, we'll build a custom tracking pixel that works for any Gmail account using Google Apps Script.
 
+&nbsp;
+
 ### How it Works
 1. **Tracking Pixel**: A tiny 1x1 transparent image hosted on a GAS Web App.
 2. **Logging**: When the recipient opens the email, their browser requests the image, triggering the GAS function.
 3. **Database**: The time and recipient's ID are logged into a Google Sheet.
+
+&nbsp;
 
 ### Step 1: The GAS Code
 Create a new script at [script.google.com](https://script.google.com) and paste this:
@@ -36,8 +40,12 @@ function doGet(e) {
 }
 </pre>
 
+&nbsp;
+
 ### Step 2: Deployment
 Deploy as a **Web App** and set access to **"Anyone"**. Copy the URL.
+
+&nbsp;
 
 ### Step 3: Usage
 Embed the tracking URL in your email's HTML:
@@ -52,10 +60,14 @@ DESC: 相手がメールを読んだか知りたい？Google Apps Scriptとス�
 BODY:
 Gmailの標準の開封確認機能は、法人向けのWorkspaceアカウントでしか使えません。今回は、GASを使って「誰が・いつ・メールを開いたか」をスプレッドシートに記録するツールを自作します。
 
+&nbsp;
+
 ### 仕組み
 1. **トラッキングピクセル**: GASのウェブアプリでホストされた、目に見えない1x1ピクセルの透明画像。
 2. **ログ記録**: 相手がメールを開くと画像が読み込まれ、GASの関数が実行されます。
 3. **スプレッドシート**: 実行された時刻と識別ID（相手の名前など）をシートに自動追記します。
+
+&nbsp;
 
 ### ステップ1：GASの実装
 [Google Apps Script](https://script.google.com)を開き、以下のコードを貼り付けてください。
@@ -77,14 +89,20 @@ function doGet(e) {
 }
 </pre>
 
+&nbsp;
+
 ### ステップ2：デプロイ
 1. 右上の「デプロイ」→「新しいデプロイ」を選択。
 2. 種類を「ウェブアプリ」にし、アクセスできるユーザーを**「全員（匿名ユーザーを含む）」**に設定してデプロイします。
 3. 発行されたURLをコピーします。
 
+&nbsp;
+
 ### ステップ3：メールへの埋め込み
 メールを作成する際、HTMLモードや署名欄に以下のタグを埋め込みます。
 `<img src="コピーしたURL?id=送信先名" width="1" height="1">`
+
+&nbsp;
 
 ### 注意点
 画像ブロック設定が有効な環境では正しく計測されますが、テキスト形式のみの受信者やプロキシ経由の場合は正確に測れないことがあります。あくまで簡易的なツールとして活用しましょう！

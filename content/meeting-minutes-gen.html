@@ -12,6 +12,8 @@ DESC: Recorded a meeting but no one wants to write the summary? Use Whisper + GP
 BODY:
 Transcription is only half the battle. We'll use OpenAI's **Whisper** to convert speech to text, and then **GPT-4** to summarize it into actionable bullet points.
 
+&nbsp;
+
 ### The Pipeline
 1. **Whisper**: Transcribe `meeting.mp3`.
 2. **GPT-4**: Distill 60 minutes of talk into 5 key points.
@@ -41,9 +43,13 @@ DESC: 録音した会議の文字起こしと要約を自動化。WhisperとGPT-
 BODY:
 会議は終わった後のまとめが一番大変です。AIを使って、録音データから「誰が何を言ったか」「次のアクションは何か」を自動で抽出しましょう。
 
+&nbsp;
+
 ### 手順
 1. **Whisper**: 音声ファイルをテキスト化。
 2. **GPT-4**: 長い文章を重要ポイントだけに凝縮。
+
+&nbsp;
 
 ### 実装コード
 <pre>
@@ -67,6 +73,8 @@ response = openai.ChatCompletion.create(
 print("--- 議事録要約 ---")
 print(response.choices[0].message.content)
 </pre>
+
+&nbsp;
 
 ### 革命的な時短
 1時間の会議が、わずか数分で整理されたテキストになります。

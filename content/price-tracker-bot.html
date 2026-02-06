@@ -12,10 +12,14 @@ DESC: Stop refreshing the page! Build a bot that monitors product prices and ale
 BODY:
 Ever missed a 50% discount because you weren't looking? This Python script checks Amazon (or any store) every hour and pings your Discord server when the price drops.
 
+&nbsp;
+
 ### Architecture
 1. **Scraper**: Pulls the current price from the HTML.
 2. **Logic**: Compares it with your "Target Price".
 3. **Webhook**: Sends a POST request to Discord.
+
+&nbsp;
 
 ### The Code
 <pre>
@@ -42,6 +46,8 @@ def send_discord_alert(price):
 check_price()
 </pre>
 
+&nbsp;
+
 ### Pro Tip
 Use **GitHub Actions** to run this script every 60 minutes for free!
 [/EN]
@@ -52,10 +58,14 @@ DESC: 欲しい商品の値下げを見逃さない！Pythonで価格を監視�
 BODY:
 「昨日まで安かったのに...」という後悔をなくしましょう。Pythonを使って、ECサイトの価格を定期的にチェックし、目標価格を下回った瞬間にDiscordへメッセージを飛ばすボットを構築します。
 
+&nbsp;
+
 ### 仕組み
 1. **スクレイピング**: サイトから現在の価格を取得。
 2. **ロジック**: 「目標価格」と比較。
 3. **Webhook**: Discordのチャンネルに通知を送信。
+
+&nbsp;
 
 ### 実装コード
 <pre>
@@ -83,6 +93,8 @@ def send_discord_alert(price):
 
 check_price()
 </pre>
+
+&nbsp;
 
 ### 運用のアドバイス
 **GitHub Actions** を使えば、このプログラムを24時間、1時間おきに無料で実行し続けることができます。サーバー代は0円です。
