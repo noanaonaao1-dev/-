@@ -9,18 +9,22 @@ env: Python 3.x
 TITLE: Python Automation for Beginners: The Ultimate Setup Guide
 DESC: Learn how to start your automation journey with Python. This guide covers installation to your first script.
 BODY:
-<p>Python is the world's most popular language for automation. Whether you want to automate spreadsheets, scrape websites, or manage files, Python is your best friend. In this guide, we will set up your environment properly to avoid common pitfalls.</p>
+<div class="stage-card stage-prep">
+<span class="stage-label label-prep">Stage 1: Introduction</span>
 
-<h2>1. Why Python for Automation?</h2>
-<p>Python's syntax is close to English, making it easy to read and write. More importantly, it has a massive library ecosystem (PyPI) that allows you to do almost anything with just a few lines of code.</p>
+Python is the world's most popular language for automation. Whether you want to automate spreadsheets, scrape websites, or manage files, Python is your best friend. In this guide, we will set up your environment properly to avoid common pitfalls.
+</div>
 
-<h2>2. Installing Python (The Right Way)</h2>
-<p>Go to <a href="https://python.org">python.org</a> and download the latest version. <b>Important:</b> During installation on Windows, make sure to check the box that says <b>"Add Python to PATH"</b>. If you miss this, your terminal won't recognize Python commands.</p>
+<div class="stage-card stage-core">
+<span class="stage-label label-core">Stage 2: Setup</span>
 
-<h2>3. Your First Script</h2>
-<p>Create a file named <code>hello.py</code> and type the following:</p>
+### Installing Python (The Right Way)
+Go to [python.org](https://python.org) and download the latest version.
+**Important:** During installation on Windows, make sure to check the box that says **"Add Python to PATH"**.
 
-<div class="copy-btn-wrapper">
+### Your First Script
+Create a file named `hello.py` and type the following:
+
 <pre><code>import os
 
 def main():
@@ -29,88 +33,53 @@ def main():
 
 if __name__ == "__main__":
     main()</code></pre>
-<button class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded text-xs font-bold hover:bg-brand-700 transition-colors" onclick="copyCode(this)">Copy</button>
 </div>
 
+<div class="stage-card stage-expert">
+<span class="stage-label label-expert">Stage 3: Pro Tips</span>
 
-<h2>4. Managing Libraries with pip</h2>
-<p>To automate things, you'll need external tools. Use <code>pip</code> to install them:</p>
-<pre><code>pip install requests pandas openpyxl</code></pre>
-
-<div class="alert-info">
-    <strong>Pro Tip:</strong> Always use virtual environments (<code>venv</code>) to keep your projects clean and avoid version conflicts.
+Always use virtual environments (`venv`) to keep your projects clean and avoid version conflicts.
 </div>
-
-<script>
-function copyCode(btn) {
-    const code = btn.previousElementSibling.innerText;
-    navigator.clipboard.writeText(code);
-    btn.innerText = 'Copied!';
-    setTimeout(() => btn.innerText = 'Copy', 2000);
-}
-</script>
 [/EN]
 
 [JP]
 TITLE: 初心者向けPython入門：【完全版】セットアップと落とし穴回避ガイド
 DESC: Pythonで自動化を始めるための第一歩。インストールから最初のスクリプト実行まで、徹底解説します。
 BODY:
-<p>「Pythonを始めてみたけど、最初の1歩で動かない...」そんな経験をしたくない人のための、超・親切ガイドです。</p>
+<div class="stage-card stage-prep">
+<span class="stage-label label-prep">ステップ 1：準備</span>
 
-<h2>1. Pythonのインストール（最大の難所）</h2>
-<p>まず公式サイト <a href="https://python.org">python.org</a> から最新版をダウンロードします。</p>
+「Pythonを始めてみたけど、最初の1歩で動かない...」そんな経験をしたくない人のための、超・親切ガイドです。
 
-<div class="alert-warning">
-    <strong>【最重要】絶対に忘れてはいけないチェック</strong><br>
-    インストーラーを起動した直後の画面一番下に、<strong>「Add Python to PATH」</strong>というチェックボックスがあります。<b>これをチェックしないと、この後の手順が全てエラーになります。</b><br>
-    もし忘れてインストールしてしまった場合は、一度アンインストールしてやり直すのが一番確実で早いです。
+まず公式サイト [python.org](https://python.org) から最新版をダウンロードします。
+
+!!! warning "【最重要】絶対に忘れてはいけないチェック"
+    インストーラーを起動した直後の画面一番下に、**「Add Python to PATH」**というチェックボックスがあります。**これをチェックしないと、この後の手順が全てエラーになります。**
 </div>
 
-<h2>2. おすすめの「道具箱」：VS Code</h2>
-<p>メモ帳でプログラムを書いてはいけません。プロも使う <b>Visual Studio Code (VS Code)</b> を使いましょう。</p>
-<ul>
-    <li><a href="https://code.visualstudio.com/">VS Code公式サイト</a>からインストール。</li>
-    <li>左側のアイコンから「Python」と検索し、Microsoft製の拡張機能をインストール。</li>
-</ul>
+<div class="stage-card stage-core">
+<span class="stage-label label-core">ステップ 2：実装</span>
 
-<h2>3. 最初のプログラムを動かす</h2>
-<p>パソコンのデスクトップに <code>my-python</code> というフォルダを作り、その中に <code>test.py</code> という名前でファイルを作成してください。</p>
+### おすすめの「道具箱」：VS Code
+メモ帳でプログラムを書いてはいけません。プロも使う **Visual Studio Code (VS Code)** を使いましょう。
+*   [VS Code公式サイト](https://code.visualstudio.com/)からインストール。
 
-<div class="copy-btn-wrapper">
+### 最初のプログラムを動かす
+`test.py` という名前でファイルを作成してください。
+
 <pre><code>msg = "Pythonの自動化、最高！"
 print(msg)</code></pre>
-<button class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded text-xs font-bold hover:bg-brand-700 transition-colors" onclick="copyCode(this)">Copy</button>
+
+1. ターミナルを開きます。
+2. `cd` コマンドでフォルダへ移動します。
+3. `python test.py` と入力して実行！
 </div>
 
-<p>実行方法（ここでもミスが多い！）</p>
-<ol>
-    <li>ターミナル（WindowsならコマンドプロンプトやPowerShell）を開きます。</li>
-    <li><code>cd デスクトップ/my-python</code> と入力して、ファイルがある場所へ移動します。</li>
-    <li><b>ここがポイント：</b> <code>python test.py</code> と入力してEnterキー！</li>
-</ol>
+<div class="stage-card stage-expert">
+<span class="stage-label label-expert">ステップ 3：レベルアップ</span>
 
-<div class="alert-info">
-    ヒント：もし「'python' は、コマンドとして認識されていません」と出たら、手順1の「PATH」のチェック忘れです。
+### 初心者が絶対にはまる「ミスの要因」集
+*   **全角スペースの混入:** コードの途中に全角スペースが入っていると動かなくなります。
+*   **ファイル名のミス:** `test.py.txt` のように、後ろに `.txt` が隠れていませんか？
 </div>
-
-
-<h2>4. 初心者が絶対にはまる「ミスの要因」集</h2>
-<ul>
-    <li><strong>全角スペースの混入:</strong> コードの途中に全角スペースが入っていると動かなくなります。必ず「半角」で書きましょう。</li>
-    <li><strong>ファイル名のミス:</strong> <code>test.py.txt</code> のように、後ろに <code>.txt</code> が隠れていませんか？ 拡張子が表示される設定を確認しましょう。</li>
-    <li><strong>python か python3 か:</strong> Macをお使いの方は、<code>python</code> ではなく <code>python3</code> と打たないと動かない場合があります。</li>
-</ul>
-
-<div class="alert-success">
-    まとめ：まずはこの「環境構築」さえクリアすれば、あとは楽しい自動化の世界が待っています！
-</div>
-
-<script>
-function copyCode(btn) {
-    const code = btn.previousElementSibling.innerText;
-    navigator.clipboard.writeText(code);
-    btn.innerText = 'コピー完了！';
-    setTimeout(() => btn.innerText = 'Copy', 2000);
-}
-</script>
 [/JP]
